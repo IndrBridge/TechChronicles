@@ -109,7 +109,7 @@ nav {
     }
 }
 
-/* Calendar Modal Styles - Updated */
+/* Calendar Modal Styles */
 .calendar-modal {
     display: none;
     position: fixed;
@@ -117,32 +117,25 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(24, 24, 24, 0.98);
-    z-index: 2000;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease;
-    visibility: hidden;
 }
 
 .calendar-modal.active {
     display: flex;
     opacity: 1;
-    visibility: visible;
-    align-items: center;
-    justify-content: center;
 }
 
 .calendar-modal-content {
-    background: #181818;
-    padding: 2rem;
+    background: #1a202c;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
     border-radius: 12px;
     position: relative;
-    width: 90%;
-    max-width: 1000px;
-    max-height: 90vh;
-    overflow-y: auto;
-    border: 1px solid rgba(42, 179, 179, 0.2);
-    transform: translateY(20px);
+    transform: translateY(-20px);
     transition: transform 0.3s ease;
 }
 
@@ -150,45 +143,104 @@ nav {
     transform: translateY(0);
 }
 
-.calendar-modal-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
+.calendar-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(246, 250, 250, 0.1);
+}
+
+.close-calendar {
+    background: transparent;
     border: none;
     color: #F6FAFA;
-    font-size: 1.5rem;
     cursor: pointer;
-    width: 32px;
-    height: 32px;
+    padding: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    z-index: 1;
+    transition: opacity 0.3s ease;
 }
 
-.calendar-modal-close:hover {
-    background: rgba(246, 250, 250, 0.1);
-    color: #2AB3B3;
+.close-calendar:hover {
+    opacity: 0.7;
+}
+
+.close-calendar i {
+    width: 24px;
+    height: 24px;
 }
 
 .calendar-container {
     margin-top: 1rem;
 }
 
-.nav-links a {
-    color: #F6FAFA;
-    text-decoration: none;
-    margin-left: 2rem;
-    transition: all 0.3s ease;
-    opacity: 0.9;
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
-.nav-links a:hover {
-    opacity: 1;
-    text-decoration: underline;
+/* Regular nav links */
+.nav-link {
+    color: #F6FAFA;
+    text-decoration: none;
+    font-size: 0.9375rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #2AB3B3;
+}
+
+/* Header Buttons (Calendar and Feedback) */
+.nav-links .calendar-toggle,
+.nav-links .feedback-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    width: 160px;
+    height: 42px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* Calendar button specific styles */
+.nav-links .calendar-toggle {
+    background: #2AB3B3;
+    border: 1px solid #2AB3B3;
+    color: #F6FAFA;
+}
+
+.nav-links .calendar-toggle:hover {
+    background: #238F8F;
+    border-color: #238F8F;
+}
+
+/* Feedback button specific styles */
+.nav-links .feedback-btn {
+    background: transparent;
+    border: 1px solid #2AB3B3;
+    color: #2AB3B3;
+}
+
+.nav-links .feedback-btn:hover {
+    background: rgba(42, 179, 179, 0.1);
+}
+
+/* Icon styling for both buttons */
+.nav-links .calendar-toggle i,
+.nav-links .feedback-btn i {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
 }
 
 /* Hero section */
@@ -270,15 +322,106 @@ nav {
 }
 
 .event-card {
+    position: relative;
     padding: 1.5rem;
     background: rgba(246, 250, 250, 0.1);
     border-radius: 12px;
     margin-bottom: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border: 1px solid rgba(246, 250, 250, 0.1);
-    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Status Variants */
+.event-card.event-ongoing {
+    background: rgba(42, 179, 179, 0.15);
+    border: 1px solid rgba(42, 179, 179, 0.3);
+    box-shadow: 0 4px 12px rgba(42, 179, 179, 0.1);
+}
+
+.event-card.event-upcoming {
+    background: rgba(74, 222, 128, 0.1);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    box-shadow: 0 4px 12px rgba(74, 222, 128, 0.05);
+}
+
+/* Status Badge */
+.event-status {
+    position: absolute;
+    top: -12px;
+    right: 24px;
+    z-index: 1;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.ongoing {
+    background: #2AB3B3;
+    color: #F6FAFA;
+    box-shadow: 0 2px 8px rgba(42, 179, 179, 0.2);
+}
+
+.status-badge.upcoming {
+    background: #4ADE80;
+    color: #1a202c;
+    box-shadow: 0 2px 8px rgba(74, 222, 128, 0.2);
+}
+
+/* Event Content Styling */
+.event-info {
+    margin-top: 0.5rem;
+}
+
+.event-info h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #F6FAFA;
+}
+
+.event-date {
+    font-size: 0.9rem;
+    color: rgba(246, 250, 250, 0.7);
+    margin-bottom: 0.75rem;
+}
+
+.event-description {
+    font-size: 0.95rem;
+    color: rgba(246, 250, 250, 0.8);
+    margin-bottom: 1rem;
+}
+
+/* Hover Effects */
+.event-card:hover {
+    transform: translateY(-2px);
+}
+
+.event-card.event-ongoing:hover {
+    box-shadow: 0 6px 16px rgba(42, 179, 179, 0.15);
+}
+
+.event-card.event-upcoming:hover {
+    box-shadow: 0 6px 16px rgba(74, 222, 128, 0.1);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
 }
 
 /* Sign-up form */
@@ -613,23 +756,24 @@ h2 {
 
 /* Calendar Toggle Button - Updated */
 .calendar-toggle {
-    background: rgba(42, 179, 179, 0.1);
-    border: 1px solid #2AB3B3;
-    color: #2AB3B3;
-    padding: 0.75rem 1.25rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.95rem;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-weight: 500;
+    padding: 0.75rem 1.25rem;
+    background: rgba(42, 179, 179, 0.1);
+    border: 1px solid #2AB3B3;
+    color: #2AB3B3;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .calendar-toggle:hover {
     background: rgba(42, 179, 179, 0.2);
-    transform: translateY(-1px);
+}
+
+.calendar-toggle i {
+    font-size: 1rem;
 }
 
 /* Mobile Adjustments */
@@ -649,4 +793,621 @@ h2 {
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
     }
+}
+
+/* Calendar Feedback Section */
+.calendar-feedback {
+    background: rgba(26, 32, 44, 0.8);
+    padding: 4rem 0;
+}
+
+.feedback-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.feedback-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.feedback-card {
+    background: rgba(246, 250, 250, 0.05);
+    border: 1px solid rgba(246, 250, 250, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.feedback-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(42, 179, 179, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.feedback-card-icon {
+    width: 64px;
+    height: 64px;
+    background: rgba(42, 179, 179, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.feedback-card-icon i {
+    width: 32px;
+    height: 32px;
+    color: #2AB3B3;
+    stroke-width: 1.5;
+}
+
+.feedback-card:hover .feedback-card-icon {
+    background: #2AB3B3;
+}
+
+.feedback-card:hover .feedback-card-icon i {
+    color: #F6FAFA;
+}
+
+.feedback-card h3 {
+    color: #F6FAFA;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.feedback-card p {
+    color: rgba(246, 250, 250, 0.7);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Add the styles you provided */
+.btn-feedback {
+    background: transparent !important;
+    border: 2px solid #F6FAFA !important;
+    color: #F6FAFA !important;
+}
+
+/* Add these additional responsive styles */
+@media (max-width: 768px) {
+    .feedback-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .feedback-card {
+        padding: 1.5rem;
+    }
+}
+
+/* Add these styles if not already present */
+.engagement-stat {
+    margin-top: 1rem;
+    padding: 0.5rem 0;
+    color: #2AB3B3;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #F6FAFA;
+}
+
+.section-intro {
+    font-size: 1.1rem;
+    color: rgba(246, 250, 250, 0.9);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.btn-calendar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(42, 179, 179, 0.1);
+    border: 1px solid #2AB3B3;
+    color: #2AB3B3;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-calendar:hover {
+    background: rgba(42, 179, 179, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Events Showcase Section */
+.events-showcase {
+    padding: 6rem 0;
+    background: rgba(42, 179, 179, 0.05);
+}
+
+.showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.showcase-card {
+    background: #2AB3B3; /* Solid teal background */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.showcase-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(42, 179, 179, 0.25);
+    background: #238F8F; /* Slightly darker teal on hover */
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: #FFFFFF; /* White icon */
+    margin-bottom: 1.5rem;
+}
+
+.card-content h3 {
+    font-size: 1.5rem;
+    color: #FFFFFF; /* White heading */
+    margin-bottom: 0.5rem;
+}
+
+.event-date {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+    margin-bottom: 1rem;
+}
+
+.event-description {
+    color: #E6E6E6; /* Light grey for better readability */
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.engagement-stat {
+    color: #1a202c; /* Dark grey text */
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.9); /* Nearly white background */
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.btn-content {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.95); /* Nearly white button */
+    color: #2AB3B3; /* Teal text */
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-content:hover {
+    background: #FFFFFF; /* Pure white on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .showcase-card {
+        padding: 1.5rem;
+    }
+
+    .card-icon {
+        font-size: 2rem;
+    }
+
+    .card-content h3 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Add these styles */
+.feedback-btn {
+    background: transparent;
+    border: 1px solid #2AB3B3;
+    color: #2AB3B3;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.feedback-btn:hover {
+    background: rgba(42, 179, 179, 0.1);
+}
+
+/* Feedback Modal Styles */
+.feedback-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(24, 24, 24, 0.98);
+    z-index: 2000;
+    overflow-y: auto;
+    backdrop-filter: blur(8px);
+}
+
+.feedback-modal-content {
+    background: linear-gradient(145deg, #1a202c, #1f2937);
+    margin: 5% auto;
+    padding: 2.5rem;
+    border-radius: 16px;
+    max-width: 600px;
+    position: relative;
+    border: 1px solid rgba(42, 179, 179, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.feedback-modal h2 {
+    color: #F6FAFA;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.feedback-subtitle {
+    color: rgba(246, 250, 250, 0.7);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+/* Form Styles */
+.feedback-form {
+    display: block;
+    margin-top: 2rem;
+}
+
+.feedback-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.feedback-form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #F6FAFA;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.feedback-form-group input,
+.feedback-form-group select,
+.feedback-form-group textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: rgba(246, 250, 250, 0.05);
+    border: 1px solid rgba(246, 250, 250, 0.1);
+    border-radius: 8px;
+    color: #F6FAFA;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.feedback-form-group input:focus,
+.feedback-form-group select:focus,
+.feedback-form-group textarea:focus {
+    outline: none;
+    border-color: #2AB3B3;
+    box-shadow: 0 0 0 3px rgba(42, 179, 179, 0.15);
+    background: rgba(246, 250, 250, 0.08);
+}
+
+.feedback-form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+    margin-bottom: 0; /* Remove bottom margin to accommodate counter */
+}
+
+/* Select Styling */
+.feedback-form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23F6FAFA' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.5rem;
+    padding-right: 2.5rem;
+}
+
+.feedback-form-group select option {
+    background-color: #1a202c;
+    color: #F6FAFA;
+    padding: 0.5rem;
+}
+
+/* Submit Button */
+.feedback-submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #2AB3B3;
+    border: none;
+    border-radius: 8px;
+    color: #F6FAFA;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.feedback-submit-btn:hover {
+    background: #238F8F;
+    transform: translateY(-1px);
+}
+
+.feedback-submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Close Button */
+.feedback-modal-close {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    font-size: 1.5rem;
+    color: #F6FAFA;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(246, 250, 250, 0.1);
+}
+
+.feedback-modal-close:hover {
+    background: rgba(246, 250, 250, 0.2);
+    color: #2AB3B3;
+}
+
+/* Helper Text */
+.input-help {
+    display: block;
+    color: rgba(246, 250, 250, 0.6);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Checkbox Styling */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #F6FAFA;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(246, 250, 250, 0.2);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+}
+
+.checkbox-label input[type="checkbox"]:checked {
+    background-color: #2AB3B3;
+    border-color: #2AB3B3;
+}
+
+/* Success Message */
+.feedback-success {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.feedback-success h3 {
+    color: #2AB3B3;
+    margin: 1.5rem 0 1rem;
+    font-size: 1.5rem;
+}
+
+.feedback-success p {
+    color: rgba(246, 250, 250, 0.7);
+    margin-bottom: 2rem;
+}
+
+.feedback-close-btn {
+    background: transparent;
+    border: 1px solid #2AB3B3;
+    color: #2AB3B3;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.feedback-close-btn:hover {
+    background: rgba(42, 179, 179, 0.1);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+    .feedback-modal-content {
+        margin: 0;
+        min-height: 100vh;
+        border-radius: 0;
+        padding: 1.5rem;
+    }
+
+    .feedback-form-group input,
+    .feedback-form-group select,
+    .feedback-form-group textarea {
+        font-size: 16px; /* Prevent zoom on mobile */
+    }
+}
+
+/* Update header navigation buttons */
+.nav-links .calendar-toggle,
+.nav-links .feedback-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    width: 160px; /* Fixed width for both buttons */
+    height: 42px; /* Fixed height for both buttons */
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.nav-links .calendar-toggle {
+    background: #2AB3B3;
+    border: 1px solid #2AB3B3;
+    color: #F6FAFA;
+}
+
+.nav-links .calendar-toggle:hover {
+    background: #238F8F;
+    border-color: #238F8F;
+}
+
+.nav-links .feedback-btn {
+    background: transparent;
+    border: 1px solid #2AB3B3;
+    color: #2AB3B3;
+}
+
+.nav-links .feedback-btn:hover {
+    background: rgba(42, 179, 179, 0.1);
+}
+
+/* Icon styling */
+.nav-links .calendar-toggle i,
+.nav-links .feedback-btn i {
+    width: 16px;
+    height: 16px;
+}
+
+/* Mobile menu button - hide in desktop */
+.mobile-menu-btn {
+    display: none;
+}
+
+/* Button Icon Styling */
+.btn-calendar i,
+.btn-feedback i {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+}
+
+/* Character Counter Styles */
+.char-count {
+    font-size: 0.875rem;
+    color: rgba(246, 250, 250, 0.6);
+    text-align: right;
+    margin-top: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.char-count.warning {
+    color: #ef4444;
+}
+
+/* Update textarea styles */
+.feedback-form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+    margin-bottom: 0; /* Remove bottom margin to accommodate counter */
+}
+
+/* Container for textarea and counter */
+.feedback-form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Loading State Styles */
+.btn-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #F6FAFA;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+    margin-left: 0.5rem;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Spinner Animation */
+@keyframes spin {
+    to { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* Adjust button text position when loading */
+.btn-loading span {
+    visibility: hidden;
+}
+
+.btn-loading .loading-text {
+    visibility: visible;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Specific button loading states */
+.btn-calendar.btn-loading::after {
+    border-color: #F6FAFA;
+    border-top-color: transparent;
+}
+
+.btn-feedback.btn-loading::after {
+    border-color: #2AB3B3;
+    border-top-color: transparent;
 }
