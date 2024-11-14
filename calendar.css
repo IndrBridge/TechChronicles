@@ -442,91 +442,32 @@
     }
 }
 
-/* Scroll to Top Button */
+/* Scroll to Top Button - Lower Position */
 .scroll-top-btn {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 1rem;
+    right: 1rem;
     width: 3rem;
     height: 3rem;
-    border-radius: 50%;
-    background-color: #2AB3B3;
-    color: #F7FAFC;
+    background: #2AB3B3;
     border: none;
+    border-radius: 50%;
+    color: #F7FAFC;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     z-index: 100;
-    opacity: 0;
-    animation: fadeIn 0.3s ease forwards;
 }
 
-.scroll-top-btn:hover {
-    background-color: #238F8F;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.scroll-top-btn i {
-    font-size: 1.2rem;
-    transition: transform 0.2s ease;
-}
-
-.scroll-top-btn:hover i {
-    transform: translateY(-2px);
-}
-
-/* Button Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Focus State */
-.scroll-top-btn:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(42, 179, 179, 0.4);
-}
-
-/* Active State */
-.scroll-top-btn:active {
-    transform: translateY(1px);
-}
-
-/* Responsive Adjustments */
+/* Mobile Adjustments */
 @media (max-width: 768px) {
     .scroll-top-btn {
-        bottom: 1.5rem;
-        right: 1.5rem;
+        bottom: 0.75rem;
+        right: 0.75rem;
         width: 2.5rem;
         height: 2.5rem;
-    }
-
-    .scroll-top-btn i {
-        font-size: 1rem;
-    }
-}
-
-/* For smaller screens */
-@media (max-width: 480px) {
-    .scroll-top-btn {
-        bottom: 1rem;
-        right: 1rem;
-    }
-}
-
-/* Hide button when at top */
-@media (max-height: 400px) {
-    .scroll-top-btn {
-        display: none;
     }
 }
