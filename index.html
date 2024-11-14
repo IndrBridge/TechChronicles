@@ -945,62 +945,7 @@
         });
     </script>
 
-    <!-- Add this to your existing script section -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Existing modal code...
-
-        // Feedback modal functionality
-        const feedbackModal = document.getElementById('feedbackModal');
-        const feedbackBtns = document.querySelectorAll('.feedback-btn');
-        const feedbackCloseBtn = document.querySelector('.feedback-modal-close');
-        const feedbackForm = document.getElementById('feedbackForm');
-        const successMessage = document.getElementById('feedbackSuccess');
-        const closeSuccessBtn = document.querySelector('.feedback-close-btn');
-
-        feedbackBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                feedbackModal.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-            });
-        });
-
-        // Close modal when X is clicked
-        feedbackCloseBtn.addEventListener('click', () => {
-            feedbackModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === feedbackModal) {
-                feedbackModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Handle form submission
-        feedbackForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            feedbackForm.style.display = 'none';
-            successMessage.style.display = 'block';
-        });
-
-        // Close modal when success message close button is clicked
-        closeSuccessBtn.addEventListener('click', () => {
-            feedbackModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            // Reset form and hide success message after a brief delay
-            setTimeout(() => {
-                feedbackForm.reset();
-                feedbackForm.style.display = 'block';
-                successMessage.style.display = 'none';
-            }, 500);
-        });
-    });
-    </script>
-
-    <!-- Replace the existing feedback modal div with this complete version -->
+    <!-- Replace the feedback modal with this updated version -->
     <div id="feedbackModal" class="feedback-modal">
         <div class="feedback-modal-content">
             <span class="feedback-modal-close">&times;</span>
@@ -1039,6 +984,7 @@
                               name="feedbackDetails" 
                               placeholder="Please provide more details about your feedback" 
                               required></textarea>
+                    <div class="char-count"></div>
                 </div>
 
                 <div class="feedback-form-group">
@@ -1064,7 +1010,7 @@
                 </button>
             </form>
 
-            <div id="feedbackSuccess" class="feedback-success">
+            <div id="feedbackSuccess" class="feedback-success" style="display: none;">
                 <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
                     <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
                     <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
@@ -1076,148 +1022,106 @@
         </div>
     </div>
 
-    <!-- Replace the existing feedback modal script with this updated version -->
+    <!-- Replace the feedback handling script -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Get all necessary elements
-        const feedbackBtns = document.querySelectorAll('.btn-feedback, #openFeedbackBtn');
-        const modal = document.getElementById('feedbackModal');
-        const modalClose = document.querySelector('.feedback-modal-close');
-        const form = document.getElementById('feedbackForm');
-        const successMessage = document.getElementById('feedbackSuccess');
+        const feedbackBtns = document.querySelectorAll('.feedback-btn, #openFeedbackBtn');
+        const feedbackModal = document.getElementById('feedbackModal');
+        const feedbackForm = document.getElementById('feedbackForm');
+        const submitButton = feedbackForm.querySelector('button[type="submit"]');
+        const feedbackSuccess = document.getElementById('feedbackSuccess');
+        const closeButtons = document.querySelectorAll('.feedback-modal-close, .feedback-close-btn');
+        
+        const feedbackURL = "https://script.google.com/macros/s/AKfycbzhjlMENFCA7Ch6v5b9G1xpvhi0aOqbD5RqbPLSpbJigrLZ2i-yA1uRqYRPZ15dqBuF/exec";
 
         // Open modal
         feedbackBtns.forEach(btn => {
-            btn.addEventListener('click', function(e) {
+            btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                e.stopPropagation();
-                openModal();
+                feedbackModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
             });
         });
 
-        // Function to open modal
-        function openModal() {
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-            // Ensure form is visible and success message is hidden
-            form.style.display = 'block';
-            successMessage.style.display = 'none';
-        }
-
-        // Close modal on X click
-        modalClose.addEventListener('click', function(e) {
-            e.preventDefault();
-            closeModal();
+        // Close modal
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                closeModal();
+            });
         });
 
-        // Close modal on outside click
-        window.addEventListener('click', function(e) {
-            if (e.target === modal) {
+        // Close on outside click
+        window.addEventListener('click', (e) => {
+            if (e.target === feedbackModal) {
                 closeModal();
             }
         });
 
-        // Add escape key support
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.style.display === 'block') {
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && feedbackModal.style.display === 'block') {
                 closeModal();
+            }
+        });
+
+        // Character counter
+        const detailsTextarea = document.getElementById('feedbackDetails');
+        const charCount = feedbackForm.querySelector('.char-count');
+
+        function updateCharCount() {
+            const maxLength = 500;
+            const remaining = maxLength - detailsTextarea.value.length;
+            charCount.textContent = `${remaining} characters remaining`;
+            charCount.className = remaining < 50 ? 'char-count warning' : 'char-count';
+        }
+
+        detailsTextarea.addEventListener('input', updateCharCount);
+        updateCharCount(); // Initial count
+
+        // Form submission
+        feedbackForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<span class="loading-spinner"></span> Submitting...';
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const url = new URL(feedbackURL);
+                Object.entries(data).forEach(([key, value]) => {
+                    url.searchParams.append(key, value);
+                });
+
+                await fetch(url.toString(), {
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+
+                feedbackForm.style.display = 'none';
+                feedbackSuccess.style.display = 'block';
+                feedbackForm.reset();
+                updateCharCount();
+
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+                alert('Sorry, there was an error submitting your feedback. Please try again.');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Submit Feedback';
             }
         });
 
         function closeModal() {
-            modal.style.display = 'none';
+            feedbackModal.style.display = 'none';
             document.body.style.overflow = 'auto';
-            // Reset form
-            form.reset();
-            form.style.display = 'block';
-            successMessage.style.display = 'none';
-            // Reset validation messages
-            document.querySelectorAll('.validation-message').forEach(msg => msg.remove());
-            document.querySelectorAll('.input-error').forEach(input => input.classList.remove('input-error'));
-        }
-
-        // Form validation and submission
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            if (validateForm()) {
-                showLoading();
-                
-                // Simulate API call
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                
-                hideLoading();
-                showSuccess();
-            }
-        });
-
-        function validateForm() {
-            let isValid = true;
-            clearValidationMessages();
-
-            // Validate feedback type
-            const feedbackType = document.getElementById('feedbackType');
-            if (!feedbackType.value) {
-                showError(feedbackType, 'Please select a feedback type');
-                isValid = false;
-            }
-
-            // Validate title
-            const title = document.getElementById('feedbackTitle');
-            if (!title.value.trim()) {
-                showError(title, 'Please enter a title');
-                isValid = false;
-            }
-
-            // Validate details
-            const details = document.getElementById('feedbackDetails');
-            if (!details.value.trim()) {
-                showError(details, 'Please provide feedback details');
-                isValid = false;
-            }
-
-            // Validate email format if provided
-            const email = document.getElementById('userEmail');
-            if (email.value && !isValidEmail(email.value)) {
-                showError(email, 'Please enter a valid email address');
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        function showError(element, message) {
-            element.classList.add('input-error');
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'validation-message';
-            errorDiv.textContent = message;
-            element.parentNode.appendChild(errorDiv);
-        }
-
-        function clearValidationMessages() {
-            document.querySelectorAll('.validation-message').forEach(msg => msg.remove());
-            document.querySelectorAll('.input-error').forEach(input => input.classList.remove('input-error'));
-        }
-
-        function isValidEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        }
-
-        function showLoading() {
-            const submitBtn = form.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="loading-spinner"></span> Submitting...';
-        }
-
-        function hideLoading() {
-            const submitBtn = form.querySelector('button[type="submit"]');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = 'Submit Feedback';
-        }
-
-        function showSuccess() {
-            form.style.display = 'none';
-            successMessage.style.display = 'block';
+            setTimeout(() => {
+                feedbackForm.style.display = 'block';
+                feedbackSuccess.style.display = 'none';
+                feedbackForm.reset();
+                updateCharCount();
+            }, 300);
         }
     });
     </script>
@@ -1409,62 +1313,58 @@
     });
     </script>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const feedbackForm = document.getElementById('feedbackForm');
-    const feedbackURL = "https://script.google.com/macros/s/AKfycbwHOoMxHzKkQ56HRCohza4-bqHcHY3GLBeCYIA0PmrCV7N7IjlECRXfJK3wIfDHlyMs/exec";
-
-    feedbackForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-
-        const formData = new FormData(feedbackForm);
-        const params = new URLSearchParams();
-
-        for (const [key, value] of formData.entries()) {
-            params.append(key, value);
-        }
-
-        try {
-            await fetch(`${feedbackURL}?${params.toString()}`, {
-                method: 'GET',
-                mode: 'no-cors'
-            });
-
-            // Show success message
-            document.getElementById('feedbackSuccess').style.display = 'block';
-            feedbackForm.reset();  // Reset the form after submission
-        } catch (error) {
-            console.error('Error submitting feedback:', error);
-        }
-    });
-});
-
-    </script>
+   
+    
 
     <script>
        document.addEventListener('DOMContentLoaded', function() {
     const feedbackForm = document.getElementById('feedbackForm');
-    const feedbackURL = "https://script.google.com/macros/s/AKfycbwaXZLBTA75zqOnlap9uFzyvpRXneOIY9G1YZhMCot3vcinE88iQkPVX_udG455VZaB/exec";
+    const submitButton = feedbackForm.querySelector('button[type="submit"]');
+    const feedbackURL = "https://script.google.com/macros/s/AKfycbzhjlMENFCA7Ch6v5b9G1xpvhi0aOqbD5RqbPLSpbJigrLZ2i-yA1uRqYRPZ15dqBuF/exec";
 
     feedbackForm.addEventListener('submit', async function(event) {
         event.preventDefault();
+
+        // Disable submit button and show loading state
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<span class="loading-spinner"></span> Submitting...';
 
         const formData = new FormData(feedbackForm);
         const data = Object.fromEntries(formData.entries());
 
         try {
-            await fetch(`${feedbackURL}?feedbackType=${encodeURIComponent(data.feedbackType)}&title=${encodeURIComponent(data.feedbackTitle)}&details=${encodeURIComponent(data.feedbackDetails)}&email=${encodeURIComponent(data.userEmail || '')}&followupConsent=${encodeURIComponent(data.followupConsent ? 'Yes' : 'No')}`, {
+            // Construct URL with parameters
+            const url = new URL(feedbackURL);
+            url.searchParams.append('feedbackType', data.feedbackType);
+            url.searchParams.append('title', data.feedbackTitle);
+            url.searchParams.append('details', data.feedbackDetails);
+            url.searchParams.append('email', data.userEmail || '');
+            url.searchParams.append('followupConsent', data.followupConsent ? 'Yes' : 'No');
+
+            // Make the request
+            await fetch(url.toString(), {
                 method: 'GET',
                 mode: 'no-cors'
             });
-            // Show success message
+
+            // Hide form and show success message
+            feedbackForm.style.display = 'none';
             document.getElementById('feedbackSuccess').style.display = 'block';
-            feedbackForm.reset();  // Reset the form after submission
+            
+            // Reset form for next time
+            feedbackForm.reset();
+
         } catch (error) {
             console.error('Error submitting feedback:', error);
+            alert('Sorry, there was an error submitting your feedback. Please try again.');
+        } finally {
+            // Reset button state
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Submit Feedback';
         }
     });
 });
+
 
 
 
