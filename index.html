@@ -1411,47 +1411,40 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById("signupForm");
-        if (form) {
-            form.addEventListener("submit", async function(event) {
-                event.preventDefault();
-                
-                const formData = new FormData(this);
-                const data = Object.fromEntries(formData.entries());
-                
-                try {
-                    // Using no-cors mode since Google Apps Script doesn't support CORS
-                    await fetch(
-                        `https://script.google.com/macros/s/AKfycbwak6J2jXwAew_sE3-IThvpOEpHKR2LMlSZLqT5rfzaEdowHqnBClMNU1nzNMH5EI1VLQ/exec?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, 
-                        { method: "GET", mode: 'no-cors' }
-                    );
-                    
-                    // Create and show styled success message
-                    const successMsg = document.createElement('div');
-                    successMsg.className = 'signup-success';
-                    successMsg.innerHTML = `
-                        <i class="fas fa-check-circle"></i>
-                        <h3>Thank you for signing up!</h3>
-                        <p>We'll be in touch soon.</p>
-                    `;
-                    
-                    // Replace form content with success message
-                    const formContainer = form.parentElement;
-                    formContainer.innerHTML = '';
-                    formContainer.appendChild(successMsg);
-                    
-                } catch (error) {
-                    console.error('Error:', error);
-                }
+    const feedbackForm = document.getElementById('feedbackForm');
+    const feedbackURL = "https://script.google.com/macros/s/AKfycbwHOoMxHzKkQ56HRCohza4-bqHcHY3GLBeCYIA0PmrCV7N7IjlECRXfJK3wIfDHlyMs/exec";
+
+    feedbackForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(feedbackForm);
+        const params = new URLSearchParams();
+
+        for (const [key, value] of formData.entries()) {
+            params.append(key, value);
+        }
+
+        try {
+            await fetch(`${feedbackURL}?${params.toString()}`, {
+                method: 'GET',
+                mode: 'no-cors'
             });
+
+            // Show success message
+            document.getElementById('feedbackSuccess').style.display = 'block';
+            feedbackForm.reset();  // Reset the form after submission
+        } catch (error) {
+            console.error('Error submitting feedback:', error);
         }
     });
+});
+
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+       document.addEventListener('DOMContentLoaded', function() {
     const feedbackForm = document.getElementById('feedbackForm');
-    const feedbackURL = "https://script.google.com/macros/s/AKfycbwHOoMxHzKkQ56HRCohza4-bqHcHY3GLBeCYIA0PmrCV7N7IjlECRXfJK3wIfDHlyMs/exec";
+    const feedbackURL = "https://script.google.com/macros/s/AKfycbwaXZLBTA75zqOnlap9uFzyvpRXneOIY9G1YZhMCot3vcinE88iQkPVX_udG455VZaB/exec";
 
     feedbackForm.addEventListener('submit', async function(event) {
         event.preventDefault();
@@ -1460,19 +1453,20 @@
         const data = Object.fromEntries(formData.entries());
 
         try {
-            await fetch(`${feedbackURL}?feedbackType=${encodeURIComponent(data.feedbackType)}&title=${encodeURIComponent(data.feedbackTitle)}&details=${encodeURIComponent(data.feedbackDetails)}&email=${encodeURIComponent(data.userEmail)}`, 
-            {
+            await fetch(`${feedbackURL}?feedbackType=${encodeURIComponent(data.feedbackType)}&title=${encodeURIComponent(data.feedbackTitle)}&details=${encodeURIComponent(data.feedbackDetails)}&email=${encodeURIComponent(data.userEmail || '')}&followupConsent=${encodeURIComponent(data.followupConsent ? 'Yes' : 'No')}`, {
                 method: 'GET',
                 mode: 'no-cors'
             });
-            alert("Thank you for your feedback!");
-            feedbackForm.reset();
+            // Show success message
+            document.getElementById('feedbackSuccess').style.display = 'block';
+            feedbackForm.reset();  // Reset the form after submission
         } catch (error) {
-            console.error('Error:', error);
-            alert("Sorry, there was an error. Please try again later.");
+            console.error('Error submitting feedback:', error);
         }
     });
 });
+
+
 
     </script>
 
