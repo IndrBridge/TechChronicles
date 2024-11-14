@@ -340,6 +340,31 @@
         padding: 1rem;
         margin: 1rem;
     }
+
+    /* Calendar Feedback Section Spacing */
+    .section-intro {
+        margin-bottom: 2.5rem;
+        padding: 0 1rem;
+    }
+
+    .feedback-grid {
+        margin-top: 2rem;
+    }
+
+    .feedback-card {
+        margin-bottom: 1.5rem;
+        padding: 2rem 1.5rem;
+    }
+
+    /* If you have showcase cards */
+    .showcase-grid {
+        margin-top: 2.5rem;
+    }
+
+    .showcase-card {
+        margin-bottom: 1.5rem;
+        padding: 2rem 1.5rem;
+    }
 }
 
 /* iPhone SE / Smaller devices */
@@ -386,5 +411,51 @@
     .mobile-nav a {
         font-size: 1.1rem;
         padding: 0.875rem;
+    }
+}
+
+/* Mobile styles for header buttons */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .mobile-nav .calendar-toggle,
+    .mobile-nav .feedback-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        width: 100%;
+        height: 42px;
+        margin: 0.25rem 0;
+        font-size: 0.9375rem;
+        border-radius: 8px;
+    }
+
+    .mobile-nav .calendar-toggle {
+        background: #2AB3B3;
+        border: 1px solid #2AB3B3;
+        color: #F6FAFA;
+    }
+
+    .mobile-nav .feedback-btn {
+        background: transparent;
+        border: 1px solid #2AB3B3;
+        color: #2AB3B3;
+    }
+}
+
+/* Additional mobile menu adjustments */
+@media (max-width: 480px) {
+    .mobile-nav .calendar-toggle,
+    .mobile-nav .feedback-btn {
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
     }
 }
