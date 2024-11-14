@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>TechChronicle Calendar - AI-Powered Tech Content Planning</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="mobile.css">
+    <link rel="stylesheet" href="calendar.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">
+                <!-- SVG Logo -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 40">
+                    <!-- Circuit Lines (Left) -->
+                    <g transform="translate(10, 20)">
+                      <path d="M0 0 H15" 
+                            stroke="#2AB3B3" 
+                            stroke-width="2" 
+                            fill="none" />
+                      <circle cx="0" cy="0" r="2" fill="#2AB3B3" />
+                      <circle cx="15" cy="0" r="2" fill="#2AB3B3" />
+                    </g>
+                  
+                    <!-- Calendar Icon -->
+                    <g transform="translate(35, 10)">
+                      <rect x="0" y="0" width="20" height="20" 
+                            fill="none" 
+                            stroke="#2AB3B3" 
+                            stroke-width="2" 
+                            rx="2" />
+                      <line x1="5" y1="-3" x2="5" y2="3" 
+                            stroke="#2AB3B3" 
+                            stroke-width="2" />
+                      <line x1="15" y1="-3" x2="15" y2="3" 
+                            stroke="#2AB3B3" 
+                            stroke-width="2" />
+                      <!-- Calendar Lines -->
+                      <line x1="4" y1="8" x2="16" y2="8" 
+                            stroke="#2AB3B3" 
+                            stroke-width="1" />
+                      <line x1="4" y1="14" x2="16" y2="14" 
+                            stroke="#2AB3B3" 
+                            stroke-width="1" />
+                    </g>
+                  
+                    <!-- Text -->
+                    <g transform="translate(70, 0)">
+                      <text x="0" y="25" 
+                            font-family="Inter, sans-serif" 
+                            font-weight="700" 
+                            font-size="22" 
+                            fill="#F6FAFA">
+                        Tech<tspan fill="#2AB3B3">Chronicle</tspan>
+                      </text>
+                    </g>
+                  
+                    <!-- Circuit Lines (Right) -->
+                    <g transform="translate(240, 20)">
+                      <path d="M0 0 H15" 
+                            stroke="#2AB3B3" 
+                            stroke-width="2" 
+                            fill="none" />
+                      <circle cx="0" cy="0" r="2" fill="#2AB3B3" />
+                      <circle cx="15" cy="0" r="2" fill="#2AB3B3" />
+                    </g>
+                  
+                    <!-- Dot Pattern -->
+                    <g transform="translate(265, 20)">
+                      <circle cx="0" cy="0" r="1.5" fill="#2AB3B3" />
+                      <circle cx="6" cy="0" r="1.5" fill="#2AB3B3" />
+                      <circle cx="12" cy="0" r="1.5" fill="#2AB3B3" />
+                      <circle cx="18" cy="0" r="1.5" fill="#2AB3B3" />
+                    </g>
+                  </svg>
+            </a>
+            <div class="nav-links">
+                <a href="#features"><i class="fas fa-star"></i> Features</a>
+                <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
+                <a href="#signup"><i class="fas fa-user-plus"></i> Sign Up</a>
+                <button class="calendar-toggle">
+                    <i class="fas fa-calendar-check"></i> View Calendar
+                </button>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-stats">
+                    <span>Tracking 500+ Annual Tech Events</span> • 
+                    <span>Trusted by 1000+ Tech Professionals</span> •
+                    <span>98% Time Saved in Research</span>
+                </div>
+                <h1>AI-Driven Tech Calendar That Powers Your Content Strategy</h1>
+                <p>In the fast-paced tech world, manually tracking events and planning content is overwhelming. Let our AI transform hours of research into seconds, ensuring you never miss key industry moments while creating impactful content that resonates.</p>
+                <a href="#signup" class="btn">Amplify Your Content Strategy</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Intelligent Content Planning for Tech Professionals</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-robot feature-icon"></i>
+                    <h3>AI-Powered Event Curation</h3>
+                    <p>Our AI continuously scans and aggregates tech events, product launches, and industry trends.</p>
+                    <div class="feature-benefit">
+                        <strong>Benefit:</strong> Save 10+ hours weekly on research while catching every industry-defining moment.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-lightbulb feature-icon"></i>
+                    <h3>Smart Content Suggestions</h3>
+                    <p>Receive personalized content ideas and prompts based on upcoming events.</p>
+                    <div class="feature-benefit">
+                        <strong>Benefit:</strong> Generate engaging content ideas 5x faster with AI-driven insights.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-tasks feature-icon"></i>
+                    <h3>Automated Research & Planning</h3>
+                    <p>Let AI handle your event tracking and content planning workflow.</p>
+                    <div class="feature-benefit">
+                        <strong>Benefit:</strong> Reduce planning time by 75% while improving content relevance.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar Modal -->
+    <div class="calendar-modal">
+        <div class="calendar-modal-content">
+            <button class="calendar-modal-close" aria-label="Close calendar">×</button>
+            <div id="tech-calendar"></div>
+        </div>
+    </div>
+
+    <!-- Events Section -->
+    <section id="events" class="events">
+        <div class="container">
+            <h2>Transform Events Into Content Opportunities</h2>
+            <p>See how our AI turns industry events into strategic content ideas</p>
+            <div class="event-list">
+                <div class="event-card">
+                    <div>
+                        <h3><i class="fab fa-google"></i> Google I/O 2025</h3>
+                        <p>Annual Developer Conference • May 2025</p>
+                        <small>AI suggests: Pre-event speculation pieces, live coverage planning, impact analysis content</small>
+                        <div class="engagement-stat">
+                            <strong>↑ 47% higher engagement</strong> on content planned around this event
+                        </div>
+                    </div>
+                    <a href="#" class="btn">View Content Ideas <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="event-card">
+                    <div>
+                        <h3>Apple WWDC</h3>
+                        <p>Worldwide Developers Conference • June 2025</p>
+                        <small>AI suggests: Developer-focused previews, feature comparison content, industry impact analysis</small>
+                        <div class="engagement-stat">
+                            <strong>↑ 52% higher reach</strong> for WWDC-related content
+                        </div>
+                    </div>
+                    <a href="#" class="btn">View Content Ideas</a>
+                </div>
+                <div class="event-card">
+                    <div>
+                        <h3>AWS re:Invent</h3>
+                        <p>Cloud Computing Conference • December 2025</p>
+                        <small>AI suggests: Cloud innovation roundups, enterprise solution analysis, market trend content</small>
+                        <div class="engagement-stat">
+                            <strong>↑ 63% more leads</strong> generated during event coverage
+                        </div>
+                    </div>
+                    <a href="#" class="btn">View Content Ideas</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>What Early Users Are Saying</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p>"The AI-powered content suggestions have transformed our tech coverage. We're creating more timely, relevant content with 75% less planning time."</p>
+                    <h4>- Maya Patel, Content Strategy Director at TechNews Global</h4>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p>"Finally, a tool that understands the tech industry's pace. We've increased our content output by 3x without adding to our team."</p>
+                    <h4>- James Chen, Marketing Lead at CloudTech Solutions</h4>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p>"TechChronicle's AI has become our secret weapon for staying ahead of industry trends. Our engagement rates are up 45% since we started using it."</p>
+                    <h4>- Sarah Rodriguez, Tech Influencer & Content Creator</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sign-Up Section -->
+    <section id="signup" class="signup">
+        <div class="container">
+            <h2>Join Our Early Access Program</h2>
+            <div class="early-access-container">
+                <h3>Early Bird Benefits</h3>
+                <ul class="early-access-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>50% off lifetime subscription</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-rocket"></i>
+                        <span>Priority access to new AI features</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Exclusive content strategy workshops</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-user-edit"></i>
+                        <span>Direct input into product development</span>
+                    </li>
+                </ul>
+                <p class="urgency">Limited to first 500 users - 73% spots already claimed</p>
+            </div>
+            <div class="form-container">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required placeholder="your@email.com">
+                    </div>
+                    <button type="submit" class="btn">Secure Your Early Access</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <p>&copy; 2024 TechChronicle Calendar. Empowering tech professionals with AI-driven content planning.</p>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fas fa-file-contract"></i> Terms</a>
+                    <a href="#"><i class="fas fa-shield-alt"></i> Privacy</a>
+                    <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <button class="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="mobile-nav">
+            <a href="#features"><i class="fas fa-star"></i> Features</a>
+            <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
+            <a href="#signup"><i class="fas fa-user-plus"></i> Sign Up</a>
+            <button class="calendar-toggle">
+                <i class="fas fa-calendar-check"></i> View Calendar
+            </button>
+        </nav>
+    </div>
+
+    <!-- Core library scripts - include only once -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Calendar Component -->
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function TechCalendar() {
+            // State declarations
+            const [selectedMonth, setSelectedMonth] = useState(-1);
+            const [selectedCategory, setSelectedCategory] = useState('all');
+            const [sortBy, setSortBy] = useState('date');
+            const [visibleEvents, setVisibleEvents] = useState([]);
+            const [isLoading, setIsLoading] = useState(false);
+
+            // Sample events data
+            const events = [
+                {
+                    id: 1,
+                    title: "CES 2025",
+                    date: "2025-01-07",
+                    endDate: "2025-01-10",
+                    location: "Las Vegas, NV, USA",
+                    category: "technology",
+                    description: "The world's largest consumer electronics show featuring the latest innovations and technologies.",
+                    website: "https://ces.tech",
+                    featured: true
+                },
+                {
+                    id: 2,
+                    title: "Mobile World Congress 2025",
+                    date: "2025-02-24",
+                    endDate: "2025-02-27",
+                    location: "Barcelona, Spain",
+                    category: "mobile",
+                    description: "The largest mobile industry exhibition featuring cutting-edge mobile technologies and innovations.",
+                    website: "https://mwcbarcelona.com",
+                    featured: true
+                },
+                {
+                    id: 3,
+                    title: "SXSW 2025",
+                    date: "2025-03-07",
+                    endDate: "2025-03-16",
+                    location: "Austin, TX, USA",
+                    category: "technology",
+                    description: "A large conference and festival focusing on interactive, film, and music industries with emerging technology showcases.",
+                    website: "https://sxsw.com",
+                    featured: true
+                },
+                {
+                    id: 4,
+                    title: "NVIDIA GTC 2025",
+                    date: "2025-03-17",
+                    endDate: "2025-03-20",
+                    location: "San Jose, CA, USA",
+                    category: "ai",
+                    description: "NVIDIA's annual conference on GPU computing, AI, deep learning, and high-performance computing.",
+                    website: "https://nvidia.com/gtc",
+                    featured: true
+                },
+                {
+                    id: 5,
+                    title: "IBM Think 2025",
+                    date: "2025-05-05",
+                    endDate: "2025-05-07",
+                    location: "San Francisco, CA, USA",
+                    category: "enterprise",
+                    description: "IBM's flagship technology conference with a focus on AI, cloud, data, and security.",
+                    website: "https://ibm.com/think",
+                    featured: true
+                },
+                {
+                    id: 6,
+                    title: "Google I/O 2025",
+                    date: "2025-05-15",
+                    endDate: "2025-05-16",
+                    location: "Mountain View, CA, USA",
+                    category: "developer",
+                    description: "Google's annual developer conference showcasing the latest in Android, Cloud, and AI.",
+                    website: "https://io.google",
+                    featured: true
+                },
+                {
+                    id: 7,
+                    title: "Apple WWDC 2025",
+                    date: "2025-06-10",
+                    endDate: "2025-06-14",
+                    location: "Cupertino, CA, USA",
+                    category: "developer",
+                    description: "Apple's Worldwide Developers Conference introducing new software and technologies.",
+                    website: "https://developer.apple.com/wwdc",
+                    featured: true
+                },
+                {
+                    id: 8,
+                    title: "TNW Conference 2025",
+                    date: "2025-06-18",
+                    endDate: "2025-06-19",
+                    location: "Amsterdam, Netherlands",
+                    category: "technology",
+                    description: "TNW Conference brings together international tech leaders, executives, and investors.",
+                    website: "https://thenextweb.com",
+                    featured: true
+                },
+                {
+                    id: 9,
+                    title: "DEF CON 2025",
+                    date: "2025-08-07",
+                    endDate: "2025-08-10",
+                    location: "Las Vegas, NV, USA",
+                    category: "security",
+                    description: "One of the world's largest and most notable hacker conventions focused on cybersecurity and digital privacy.",
+                    website: "https://defcon.org",
+                    featured: true
+                },
+                {
+                    id: 10,
+                    title: "AWS re:Invent 2025",
+                    date: "2025-12-02",
+                    endDate: "2025-12-06",
+                    location: "Las Vegas, NV, USA",
+                    category: "cloud",
+                    description: "Amazon Web Services' flagship conference for cloud computing professionals.",
+                    website: "https://reinvent.awsevents.com",
+                    featured: true
+                }
+            ];
+
+            const months = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            const categories = ['all', 'technology', 'mobile', 'developer', 'cloud', 'ai', 'enterprise', 'security'];
+            const sortOptions = [
+                { value: 'date', label: 'Start Date' },
+                { value: 'endDate', label: 'End Date' },
+                { value: 'location', label: 'Location' }
+            ];
+
+            // Helper functions
+            const filterEvents = () => {
+                return events.filter(event => {
+                    const eventDate = new Date(event.date);
+                    const monthMatch = selectedMonth === -1 || eventDate.getMonth() === selectedMonth;
+                    const categoryMatch = selectedCategory === 'all' || event.category === selectedCategory;
+                    return monthMatch && categoryMatch;
+                }).sort((a, b) => {
+                    if (sortBy === 'date') {
+                        return new Date(a.date) - new Date(b.date);
+                    } else if (sortBy === 'endDate') {
+                        return new Date(a.endDate) - new Date(b.endDate);
+                    } else if (sortBy === 'location') {
+                        return a.location.localeCompare(b.location);
+                    } else {
+                        return 0;
+                    }
+                });
+            };
+
+            // Effect to filter and sort events
+            useEffect(() => {
+                setIsLoading(true);
+                // Simulate loading
+                setTimeout(() => {
+                    setVisibleEvents(filterEvents());
+                    setIsLoading(false);
+                }, 500);
+            }, [selectedMonth, selectedCategory, sortBy]);
+
+            // Helper functions to check if event is today or upcoming
+            const isToday = (date) => {
+                const today = new Date();
+                const eventDate = new Date(date);
+                return eventDate.getDate() === today.getDate() &&
+                       eventDate.getMonth() === today.getMonth() &&
+                       eventDate.getFullYear() === today.getFullYear();
+            };
+
+            const isUpcoming = (date) => {
+                return new Date(date) > new Date();
+            };
+
+            return (
+                <div className="calendar-container">
+                    {/* Filters Section */}
+                    <div className="filters">
+                        <select 
+                            value={selectedMonth} 
+                            onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
+                        >
+                            <option value={-1}>All Months</option>
+                            {months.map((month, index) => (
+                                <option key={month} value={index}>{month}</option>
+                            ))}
+                        </select>
+
+                        <select 
+                            value={selectedCategory} 
+                            onChange={(e) => setSelectedCategory(e.target.value)}
+                        >
+                            {categories.map(category => (
+                                <option key={category} value={category}>
+                                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                                </option>
+                            ))}
+                        </select>
+
+                        <select 
+                            value={sortBy} 
+                            onChange={(e) => setSortBy(e.target.value)}
+                        >
+                            {sortOptions.map(option => (
+                                <option key={option.value} value={option.value}>
+                                    Sort by {option.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* Events List */}
+                    <div className="events-list">
+                        {isLoading ? (
+                            <div className="loading">
+                                <i className="fas fa-spinner fa-spin"></i> Loading...
+                            </div>
+                        ) : visibleEvents.length > 0 ? (
+                            visibleEvents.map(event => (
+                                <div key={event.id} className={`event-card ${isToday(event.date) ? 'today' : ''}`}>
+                                    <h3>{event.title}</h3>
+                                    <p>{event.description}</p>
+                                    <p><strong>Location:</strong> {event.location}</p>
+                                    <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()} - {new Date(event.endDate).toLocaleDateString()}</p>
+                                    <a href={event.website} target="_blank" rel="noopener noreferrer">Visit Website</a>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No events found for the selected filters.</p>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        // Render the TechCalendar component into the 'tech-calendar' div
+        ReactDOM.render(<TechCalendar />, document.getElementById('tech-calendar'));
+    </script>
+
+    <!-- Modal Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarToggles = document.querySelectorAll('.calendar-toggle');
+            const calendarModal = document.querySelector('.calendar-modal');
+            const closeButton = document.querySelector('.calendar-modal-close');
+
+            function openCalendarModal() {
+                calendarModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+
+            function closeCalendarModal() {
+                calendarModal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+
+            calendarToggles.forEach(toggle => {
+                toggle.addEventListener('click', openCalendarModal);
+            });
+
+            closeButton.addEventListener('click', closeCalendarModal);
+
+            calendarModal.addEventListener('click', (e) => {
+                if (e.target === calendarModal) {
+                    closeCalendarModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && calendarModal.classList.contains('active')) {
+                    closeCalendarModal();
+                }
+            });
+        });
+    </script>
+
+    <!-- Add this script after your React component script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+
+            function closeMobileMenu() {
+                mobileMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+
+            function toggleMobileMenu() {
+                mobileMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            }
+
+            // Mobile menu button click
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+
+            // Close button click
+            if (mobileMenuClose) {
+                mobileMenuClose.addEventListener('click', toggleMobileMenu);
+            }
+
+            // Close menu when clicking nav links
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', toggleMobileMenu);
+            });
+
+            // Calendar Modal Toggle
+            const calendarToggles = document.querySelectorAll('.calendar-toggle');
+            const calendarModal = document.querySelector('.calendar-modal');
+            const closeButton = document.querySelector('.calendar-modal-close');
+
+            function toggleCalendarModal(show) {
+                if (show) {
+                    calendarModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    // Close mobile menu when calendar opens
+                    closeMobileMenu();
+                } else {
+                    calendarModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            // Calendar toggle buttons
+            calendarToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => toggleCalendarModal(true));
+            });
+
+            // Close button
+            if (closeButton) {
+                closeButton.addEventListener('click', () => toggleCalendarModal(false));
+            }
+
+            // Close modal when clicking outside
+            if (calendarModal) {
+                calendarModal.addEventListener('click', (e) => {
+                    if (e.target === calendarModal) {
+                        toggleCalendarModal(false);
+                    }
+                });
+            }
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (calendarModal.classList.contains('active')) {
+                        toggleCalendarModal(false);
+                    }
+                    if (mobileMenu.classList.contains('active')) {
+                        closeMobileMenu();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

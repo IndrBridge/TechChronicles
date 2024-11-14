@@ -1,0 +1,219 @@
+/* calendar.css */
+
+/* General Styles for Calendar Container */
+.calendar-container {
+    background-color: #1a202c; /* Dark background */
+    padding: 20px;
+    border-radius: 8px;
+    color: #f7fafc; /* Light text for contrast */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* Filters Section */
+.calendar-container .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.calendar-container .filters select {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #4a5568;
+    background-color: #2d3748;
+    color: #f7fafc;
+    font-size: 14px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.calendar-container .filters select:focus {
+    border-color: #38b2ac;
+    box-shadow: 0 0 0 1px #38b2ac;
+    outline: none;
+}
+
+/* Events List */
+.calendar-container .events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Individual Event Card */
+.calendar-container .event-card {
+    background-color: #2d3748; /* Slightly lighter than container */
+    padding: 15px 20px;
+    border-radius: 6px;
+    border-left: 4px solid #4a5568;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.calendar-container .event-card.today {
+    border-left-color: #38b2ac; /* Highlight for today's event */
+    background-color: #2c7a7b; /* Slightly different background */
+}
+
+.calendar-container .event-card:hover {
+    background-color: #4a5568;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-container .event-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    color: #f6fafc;
+}
+
+.calendar-container .event-card p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #a0aec0;
+}
+
+.calendar-container .event-card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background-color: #38b2ac;
+    color: #f7fafc;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.calendar-container .event-card a:hover {
+    background-color: #2c7a7b;
+}
+
+/* Loading Spinner */
+.calendar-container .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #38b2ac;
+    padding: 20px 0;
+}
+
+.calendar-container .loading i {
+    margin-right: 8px;
+    animation: spin 1s linear infinite;
+}
+
+/* Keyframes for Spinner Animation */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .calendar-container {
+        padding: 15px;
+    }
+
+    .calendar-container .filters {
+        flex-direction: column;
+    }
+
+    .calendar-container .filters select {
+        width: 100%;
+    }
+
+    .calendar-container .event-card h3 {
+        font-size: 16px;
+    }
+
+    .calendar-container .event-card p {
+        font-size: 13px;
+    }
+
+    .calendar-container .event-card a {
+        font-size: 13px;
+        padding: 5px 10px;
+    }
+}
+
+/* Scrollbar Styling for Calendar Container */
+.calendar-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.calendar-container::-webkit-scrollbar-track {
+    background: #2d3748;
+    border-radius: 4px;
+}
+
+.calendar-container::-webkit-scrollbar-thumb {
+    background-color: #38b2ac;
+    border-radius: 4px;
+}
+
+/* Modal Styles */
+.calendar-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(26, 32, 44, 0.95); /* Semi-transparent dark overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s;
+    z-index: 1000;
+}
+
+.calendar-modal.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.calendar-modal-content {
+    background-color: #1a202c;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.calendar-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #f7fafc;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.calendar-modal-close:hover {
+    color: #38b2ac;
+}
+
+/* Calendar Controls */
+.calendar-container .filters select {
+    width: 150px;
+}
+
+/* Additional Enhancements */
+.calendar-container .event-card strong {
+    color: #cbd5e0;
+}
+
+.calendar-container .event-card .engagement-stat {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #cbd5e0;
+}
