@@ -307,6 +307,8 @@
             const [sortBy, setSortBy] = useState('date');
             const [visibleEvents, setVisibleEvents] = useState([]);
             const [isLoading, setIsLoading] = useState(false);
+            const [selectedLocation, setSelectedLocation] = useState('all');
+            const [showScrollTop, setShowScrollTop] = useState(false);
 
             // Sample events data
             const events = [
@@ -434,35 +436,28 @@
                 { value: 'location', label: 'Location' }
             ];
 
-            // Helper functions
-            const filterEvents = () => {
-                return events.filter(event => {
-                    const eventDate = new Date(event.date);
-                    const monthMatch = selectedMonth === -1 || eventDate.getMonth() === selectedMonth;
-                    const categoryMatch = selectedCategory === 'all' || event.category === selectedCategory;
-                    return monthMatch && categoryMatch;
-                }).sort((a, b) => {
-                    if (sortBy === 'date') {
-                        return new Date(a.date) - new Date(b.date);
-                    } else if (sortBy === 'endDate') {
-                        return new Date(a.endDate) - new Date(b.endDate);
-                    } else if (sortBy === 'location') {
-                        return a.location.localeCompare(b.location);
-                    } else {
-                        return 0;
-                    }
-                });
-            };
+            // Get unique locations from events
+            const locations = ['all', ...new Set(events.map(event => event.location))];
 
-            // Effect to filter and sort events
+            // Updated filter logic
             useEffect(() => {
                 setIsLoading(true);
+                const filtered = events.filter(event => {
+                    const eventMonth = new Date(event.date).getMonth();
+                    const categoryMatch = selectedCategory === 'all' || 
+                                        event.category.toLowerCase() === selectedCategory;
+                    const monthMatch = selectedMonth === -1 || eventMonth === selectedMonth;
+                    const locationMatch = selectedLocation === 'all' || 
+                                        event.location === selectedLocation;
+                    return monthMatch && categoryMatch && locationMatch;
+                });
+
                 // Simulate loading
                 setTimeout(() => {
-                    setVisibleEvents(filterEvents());
+                    setVisibleEvents(filtered);
                     setIsLoading(false);
                 }, 500);
-            }, [selectedMonth, selectedCategory, sortBy]);
+            }, [selectedMonth, selectedCategory, selectedLocation, sortBy]);
 
             // Helper functions to check if event is today or upcoming
             const isToday = (date) => {
@@ -534,41 +529,94 @@
                 );
             };
 
+            // Scroll to top handler
+            const scrollToTop = () => {
+                const calendarContainer = document.querySelector('.calendar-container');
+                if (calendarContainer) {
+                    calendarContainer.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            };
+
+            // Show/hide scroll button based on scroll position
+            useEffect(() => {
+                const calendarContainer = document.querySelector('.calendar-container');
+                
+                const handleScroll = () => {
+                    setShowScrollTop(calendarContainer.scrollTop > 300);
+                };
+
+                if (calendarContainer) {
+                    calendarContainer.addEventListener('scroll', handleScroll);
+                    return () => calendarContainer.removeEventListener('scroll', handleScroll);
+                }
+            }, []);
+
             return (
                 <div className="calendar-container">
-                    {/* Filters Section */}
-                    <div className="filters">
-                        <select 
-                            value={selectedMonth} 
-                            onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
-                        >
-                            <option value={-1}>All Months</option>
-                            {months.map((month, index) => (
-                                <option key={month} value={index}>{month}</option>
-                            ))}
-                        </select>
+                    <div className="calendar-header">
+                        <div className="header-top">
+                            <h2>Tech Events Calendar</h2>
+                            <div className="date-display">
+                                <span className="current-date">
+                                    {new Date().toLocaleDateString('en-US', { 
+                                        month: 'long',
+                                        year: 'numeric'
+                                    })}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div className="filters-grid">
+                            <select 
+                                value={selectedMonth} 
+                                onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
+                                className="calendar-select"
+                            >
+                                <option value={-1}>All Months</option>
+                                {months.map((month, index) => (
+                                    <option key={month} value={index}>{month}</option>
+                                ))}
+                            </select>
 
-                        <select 
-                            value={selectedCategory} 
-                            onChange={(e) => setSelectedCategory(e.target.value)}
-                        >
-                            {categories.map(category => (
-                                <option key={category} value={category}>
-                                    {category.charAt(0).toUpperCase() + category.slice(1)}
-                                </option>
-                            ))}
-                        </select>
+                            <select 
+                                value={selectedCategory} 
+                                onChange={(e) => setSelectedCategory(e.target.value)}
+                                className="calendar-select"
+                            >
+                                {categories.map(category => (
+                                    <option key={category} value={category}>
+                                        {category.charAt(0).toUpperCase() + category.slice(1)}
+                                    </option>
+                                ))}
+                            </select>
 
-                        <select 
-                            value={sortBy} 
-                            onChange={(e) => setSortBy(e.target.value)}
-                        >
-                            {sortOptions.map(option => (
-                                <option key={option.value} value={option.value}>
-                                    Sort by {option.label}
-                                </option>
-                            ))}
-                        </select>
+                            <select 
+                                value={selectedLocation} 
+                                onChange={(e) => setSelectedLocation(e.target.value)}
+                                className="calendar-select"
+                            >
+                                {locations.map(location => (
+                                    <option key={location} value={location}>
+                                        {location === 'all' ? 'All Locations' : location}
+                                    </option>
+                                ))}
+                            </select>
+
+                            <select 
+                                value={sortBy} 
+                                onChange={(e) => setSortBy(e.target.value)}
+                                className="calendar-select"
+                            >
+                                {sortOptions.map(option => (
+                                    <option key={option.value} value={option.value}>
+                                        Sort by {option.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
 
                     {/* Events List */}
@@ -585,6 +633,17 @@
                             <p>No events found for the selected filters.</p>
                         )}
                     </div>
+
+                    {/* Scroll to Top Button */}
+                    {showScrollTop && (
+                        <button 
+                            className="scroll-top-btn"
+                            onClick={scrollToTop}
+                            aria-label="Scroll to top"
+                        >
+                            <i className="fas fa-arrow-up"></i>
+                        </button>
+                    )}
                 </div>
             );
         }
