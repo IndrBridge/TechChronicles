@@ -333,3 +333,171 @@
         width: 100%;
     }
 }
+
+/* Calendar Header Styles */
+.calendar-header {
+    margin-bottom: 2rem;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.header-top h2 {
+    color: #F6FAFA;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.date-display {
+    background: rgba(42, 179, 179, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+}
+
+.current-date {
+    color: #2AB3B3;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+/* Filters Grid */
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-select {
+    background: #1E293B;
+    color: #F6FAFA;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(42, 179, 179, 0.2);
+    border-radius: 6px;
+    width: 100%;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calendar-select:hover {
+    border-color: #2AB3B3;
+}
+
+.calendar-select:focus {
+    outline: none;
+    border-color: #2AB3B3;
+    box-shadow: 0 0 0 2px rgba(42, 179, 179, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .date-display {
+        width: 100%;
+        text-align: center;
+    }
+
+    .filters-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Scroll to Top Button */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: #2AB3B3;
+    color: #F7FAFC;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 100;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.scroll-top-btn:hover {
+    background-color: #238F8F;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-top-btn i {
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+}
+
+.scroll-top-btn:hover i {
+    transform: translateY(-2px);
+}
+
+/* Button Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Focus State */
+.scroll-top-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(42, 179, 179, 0.4);
+}
+
+/* Active State */
+.scroll-top-btn:active {
+    transform: translateY(1px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .scroll-top-btn {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .scroll-top-btn i {
+        font-size: 1rem;
+    }
+}
+
+/* For smaller screens */
+@media (max-width: 480px) {
+    .scroll-top-btn {
+        bottom: 1rem;
+        right: 1rem;
+    }
+}
+
+/* Hide button when at top */
+@media (max-height: 400px) {
+    .scroll-top-btn {
+        display: none;
+    }
+}
