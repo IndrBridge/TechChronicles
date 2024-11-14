@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="mobile.css">
     <link rel="stylesheet" href="calendar.css">
     <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Add this line -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <!-- Header -->
@@ -80,17 +83,64 @@
                     </g>
                   </svg>
             </a>
-            <div class="nav-links">
-                <a href="#features"><i class="fas fa-star"></i> Features</a>
-                <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
-                <a href="#signup"><i class="fas fa-user-plus"></i> Sign Up</a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="nav-links">
+                <a href="#features" class="nav-link">
+                    <i data-lucide="star"></i>
+                    Features
+                </a>
+                <a href="#events" class="nav-link">
+                    <i data-lucide="calendar"></i>
+                    Events
+                </a>
+                <a href="#signup" class="nav-link">
+                    <i data-lucide="user"></i>
+                    Sign Up
+                </a>
                 <button class="calendar-toggle">
-                    <i class="fas fa-calendar-check"></i> View Calendar
+                    <i data-lucide="calendar"></i>
+                    View Calendar
                 </button>
-            </div>
+                <button class="feedback-btn">
+                    <i data-lucide="message-square"></i>
+                    Feedback
+                </button>
+            </nav>
+
+            <!-- Mobile Menu Button -->
             <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
+                <i data-lucide="menu"></i>
             </button>
+
+            <!-- Mobile Menu Panel -->
+            <div class="mobile-menu">
+                <button class="mobile-menu-close">
+                    <i data-lucide="x"></i>
+                </button>
+                <nav class="mobile-nav">
+                    <a href="#features" class="nav-link">
+                        <i data-lucide="star"></i>
+                        Features
+                    </a>
+                    <a href="#events" class="nav-link">
+                        <i data-lucide="calendar"></i>
+                        Events
+                    </a>
+                    <a href="#signup" class="nav-link">
+                        <i data-lucide="user"></i>
+                        Sign Up
+                    </a>
+                    <button class="calendar-toggle">
+                        <i data-lucide="calendar"></i>
+                        View Calendar
+                    </button>
+                    <button class="feedback-btn">
+                        <i data-lucide="message-square"></i>
+                        Feedback
+                    </button>
+                </nav>
+            </div>
         </nav>
     </header>
 
@@ -218,6 +268,42 @@
         </div>
     </section>
 
+    <!-- Calendar Feedback Section -->
+    <section class="calendar-feedback">
+        <div class="container">
+            <div class="feedback-content">
+                <h2>Your Input Shapes Our Future</h2>
+                <p>We're constantly evolving to better serve your content planning needs. Try our calendar and share your thoughts to help us create the perfect tool for tech professionals like you.</p>
+
+                <div class="feedback-grid">
+                    <div class="feedback-card">
+                        <div class="feedback-card-icon">
+                            <i data-lucide="calendar"></i>
+                        </div>
+                        <h3>Experience the Calendar</h3>
+                        <p>Discover how our AI-powered calendar can transform your content planning workflow.</p>
+                        <button class="btn btn-calendar calendar-toggle" id="useCalendarBtn">
+                            <i data-lucide="calendar"></i>
+                            Use Calendar
+                        </button>
+                    </div>
+
+                    <div class="feedback-card">
+                        <div class="feedback-card-icon">
+                            <i data-lucide="message-square"></i>
+                        </div>
+                        <h3>Share Your Thoughts</h3>
+                        <p>Your feedback helps us improve. Tell us what features you'd like to see.</p>
+                        <button class="btn btn-feedback" id="openFeedbackBtn">
+                            <i data-lucide="message-square"></i>
+                            Give Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Sign-Up Section -->
     <section id="signup" class="signup">
         <div class="container">
@@ -275,21 +361,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <button class="mobile-menu-close">
-            <i class="fas fa-times"></i>
-        </button>
-        <nav class="mobile-nav">
-            <a href="#features"><i class="fas fa-star"></i> Features</a>
-            <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
-            <a href="#signup"><i class="fas fa-user-plus"></i> Sign Up</a>
-            <button class="calendar-toggle">
-                <i class="fas fa-calendar-check"></i> View Calendar
-            </button>
-        </nav>
-    </div>
 
     <!-- Core library scripts - include only once -->
     <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
@@ -483,47 +554,65 @@
                     window.open(url, "_blank");
                 };
 
+                // Add status check functions
+                const isEventOngoing = () => {
+                    const now = new Date();
+                    const startDate = new Date(event.date);
+                    const endDate = new Date(event.endDate);
+                    return now >= startDate && now <= endDate;
+                };
+
+                const isEventUpcoming = () => {
+                    const now = new Date();
+                    const startDate = new Date(event.date);
+                    const oneWeek = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+                    const timeToEvent = startDate - now;
+                    return timeToEvent > 0 && timeToEvent <= oneWeek;
+                };
+
+                const getStatusBadge = () => {
+                    if (isEventOngoing()) {
+                        return <span className="status-badge ongoing">Happening Now</span>;
+                    } else if (isEventUpcoming()) {
+                        const days = Math.ceil((new Date(event.date) - new Date()) / (1000 * 60 * 60 * 24));
+                        return <span className="status-badge upcoming">Starting in {days} days</span>;
+                    }
+                    return null;
+                };
+
                 return (
-                    <div className="event-card">
-                        <div className="event-header">
-                            <div>
-                                <h3 className="event-title">
-                                    {event.title}
-                                    {event.featured && <span className="featured-badge">Featured</span>}
-                                </h3>
-                                <div className="event-category">{event.category}</div>
+                    <div className={`event-card ${isEventOngoing() ? 'event-ongoing' : ''} ${isEventUpcoming() ? 'event-upcoming' : ''}`}>
+                        {getStatusBadge() && (
+                            <div className="event-status">
+                                {getStatusBadge()}
                             </div>
-                        </div>
-                        
-                        <div className="event-date">
-                            {new Date(event.date).toLocaleDateString()} - {new Date(event.endDate).toLocaleDateString()}
-                            {isUpcoming(event.date) && <span className="upcoming-badge">Upcoming</span>}
-                        </div>
-                        
-                        <p className="event-description">{event.description}</p>
-                        
-                        <div className="event-location">
-                            <span className="location-pin">📍</span> {event.location}
-                        </div>
-                        
-                        <div className="event-actions">
-                            <button 
-                                onClick={() => addToGoogleCalendar(event)}
-                                className="btn-calendar"
-                                data-type="google"
-                            >
-                                <i className="fas fa-calendar-plus"></i>
-                                Add to Google Calendar
-                            </button>
-                            <a 
-                                href={event.website} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="btn-website"
-                            >
-                                <i className="fas fa-external-link-alt"></i>
-                                Visit Website
-                            </a>
+                        )}
+                        <div className="event-info">
+                            <h3>{event.title}</h3>
+                            <p className="event-date">{new Date(event.date).toLocaleDateString()} - {new Date(event.endDate).toLocaleDateString()} • {event.category}</p>
+                            <p className="event-description">{event.description}</p>
+                            <div className="event-location">
+                                <span className="location-pin">📍</span> {event.location}
+                            </div>
+                            <div className="event-actions">
+                                <button 
+                                    onClick={() => addToGoogleCalendar(event)}
+                                    className="btn-calendar"
+                                    data-type="google"
+                                >
+                                    <i className="fas fa-calendar-plus"></i>
+                                    Add to Google Calendar
+                                </button>
+                                <a 
+                                    href={event.website} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="btn-website"
+                                >
+                                    <i className="fas fa-external-link-alt"></i>
+                                    Visit Website
+                                </a>
+                            </div>
                         </div>
                     </div>
                 );
@@ -693,16 +782,10 @@
     <!-- Add this script after your React component script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Mobile Menu Toggle
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const mobileMenu = document.querySelector('.mobile-menu');
             const mobileMenuClose = document.querySelector('.mobile-menu-close');
             const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
-
-            function closeMobileMenu() {
-                mobileMenu.classList.remove('active');
-                document.body.classList.remove('menu-open');
-            }
 
             function toggleMobileMenu() {
                 mobileMenu.classList.toggle('active');
@@ -710,68 +793,485 @@
             }
 
             // Mobile menu button click
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-            }
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 
             // Close button click
-            if (mobileMenuClose) {
-                mobileMenuClose.addEventListener('click', toggleMobileMenu);
-            }
+            mobileMenuClose.addEventListener('click', toggleMobileMenu);
 
             // Close menu when clicking nav links
             mobileNavLinks.forEach(link => {
                 link.addEventListener('click', toggleMobileMenu);
             });
+        });
+    </script>
 
-            // Calendar Modal Toggle
-            const calendarToggles = document.querySelectorAll('.calendar-toggle');
-            const calendarModal = document.querySelector('.calendar-modal');
-            const closeButton = document.querySelector('.calendar-modal-close');
+    <!-- Add this script after your existing scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Helper functions for checking event status
+            function isEventOngoing(event) {
+                const now = new Date();
+                const startDate = new Date(event.date);
+                const endDate = new Date(event.endDate);
+                return now >= startDate && now <= endDate;
+            }
 
-            function toggleCalendarModal(show) {
-                if (show) {
-                    calendarModal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                    // Close mobile menu when calendar opens
-                    closeMobileMenu();
-                } else {
-                    calendarModal.classList.remove('active');
-                    document.body.style.overflow = '';
+            function isEventUpcoming(event) {
+                const now = new Date();
+                const startDate = new Date(event.date);
+                const oneWeek = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+                const timeToEvent = startDate - now;
+                return timeToEvent > 0 && timeToEvent <= oneWeek;
+            }
+
+            function getStatusBadgeHTML(event) {
+                if (isEventOngoing(event)) {
+                    return '<span class="status-badge ongoing">Happening Now</span>';
+                } else if (isEventUpcoming(event)) {
+                    const days = Math.ceil((new Date(event.date) - new Date()) / (1000 * 60 * 60 * 24));
+                    return `<span class="status-badge upcoming">Starting in ${days} days</span>`;
                 }
+                return '';
             }
 
-            // Calendar toggle buttons
-            calendarToggles.forEach(toggle => {
-                toggle.addEventListener('click', () => toggleCalendarModal(true));
-            });
+            // Update existing event cards
+            const eventCards = document.querySelectorAll('.event-card');
+            eventCards.forEach(card => {
+                // Extract event data from the card
+                const event = {
+                    date: card.querySelector('.event-date').dataset.startDate,
+                    endDate: card.querySelector('.event-date').dataset.endDate
+                };
 
-            // Close button
-            if (closeButton) {
-                closeButton.addEventListener('click', () => toggleCalendarModal(false));
-            }
+                // Add status classes
+                if (isEventOngoing(event)) {
+                    card.classList.add('event-ongoing');
+                } else if (isEventUpcoming(event)) {
+                    card.classList.add('event-upcoming');
+                }
 
-            // Close modal when clicking outside
-            if (calendarModal) {
-                calendarModal.addEventListener('click', (e) => {
-                    if (e.target === calendarModal) {
-                        toggleCalendarModal(false);
-                    }
-                });
-            }
-
-            // Close modal with Escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    if (calendarModal.classList.contains('active')) {
-                        toggleCalendarModal(false);
-                    }
-                    if (mobileMenu.classList.contains('active')) {
-                        closeMobileMenu();
-                    }
+                // Add status badge if needed
+                const statusBadge = getStatusBadgeHTML(event);
+                if (statusBadge) {
+                    const statusDiv = document.createElement('div');
+                    statusDiv.className = 'event-status';
+                    statusDiv.innerHTML = statusBadge;
+                    card.insertBefore(statusDiv, card.firstChild);
                 }
             });
         });
+    </script>
+
+    <!-- Add this to your existing script section -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Existing modal code...
+
+        // Feedback modal functionality
+        const feedbackModal = document.getElementById('feedbackModal');
+        const feedbackBtns = document.querySelectorAll('.feedback-btn');
+        const feedbackCloseBtn = document.querySelector('.feedback-modal-close');
+        const feedbackForm = document.getElementById('feedbackForm');
+        const successMessage = document.getElementById('feedbackSuccess');
+        const closeSuccessBtn = document.querySelector('.feedback-close-btn');
+
+        feedbackBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                feedbackModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modal when X is clicked
+        feedbackCloseBtn.addEventListener('click', () => {
+            feedbackModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === feedbackModal) {
+                feedbackModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Handle form submission
+        feedbackForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            feedbackForm.style.display = 'none';
+            successMessage.style.display = 'block';
+        });
+
+        // Close modal when success message close button is clicked
+        closeSuccessBtn.addEventListener('click', () => {
+            feedbackModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            // Reset form and hide success message after a brief delay
+            setTimeout(() => {
+                feedbackForm.reset();
+                feedbackForm.style.display = 'block';
+                successMessage.style.display = 'none';
+            }, 500);
+        });
+    });
+    </script>
+
+    <!-- Replace the existing feedback modal div with this complete version -->
+    <div id="feedbackModal" class="feedback-modal">
+        <div class="feedback-modal-content">
+            <span class="feedback-modal-close">&times;</span>
+            <h2>Share Your Feedback</h2>
+            <p class="feedback-subtitle">Help us improve TechChronicle Calendar</p>
+            
+            <form id="feedbackForm" class="feedback-form">
+                <div class="feedback-form-group">
+                    <label for="feedbackType">Type of Feedback</label>
+                    <select id="feedbackType" name="feedbackType" required>
+                        <option value="">Select feedback type</option>
+                        <option value="feature_suggestion">Feature Suggestion</option>
+                        <option value="bug_report">Bug Report</option>
+                        <option value="improvement">Improvement Idea</option>
+                        <option value="calendar_feedback">Calendar Feedback</option>
+                        <option value="user_interface">User Interface</option>
+                        <option value="performance">Performance Issues</option>
+                        <option value="content_suggestion">Content Suggestion</option>
+                        <option value="integration_request">Integration Request</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="feedback-form-group">
+                    <label for="feedbackTitle">Title</label>
+                    <input type="text" 
+                           id="feedbackTitle" 
+                           name="feedbackTitle" 
+                           placeholder="Brief summary of your feedback" 
+                           required>
+                </div>
+
+                <div class="feedback-form-group">
+                    <label for="feedbackDetails">Details</label>
+                    <textarea id="feedbackDetails" 
+                              name="feedbackDetails" 
+                              placeholder="Please provide more details about your feedback" 
+                              required></textarea>
+                </div>
+
+                <div class="feedback-form-group">
+                    <label for="userEmail">Your Email (optional)</label>
+                    <input type="email" 
+                           id="userEmail" 
+                           name="userEmail" 
+                           placeholder="To receive updates about your feedback">
+                    <small class="input-help">We'll only use this to follow up on your feedback</small>
+                </div>
+
+                <div class="feedback-form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" 
+                               id="followupConsent" 
+                               name="followupConsent">
+                        <span>I'm open to being contacted about my feedback</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="feedback-submit-btn">
+                    Submit Feedback
+                </button>
+            </form>
+
+            <div id="feedbackSuccess" class="feedback-success">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <h3>Thank you for your feedback!</h3>
+                <p>We appreciate your input and will use it to improve our service.</p>
+                <button class="feedback-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Replace the existing feedback modal script with this updated version -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all necessary elements
+        const feedbackBtns = document.querySelectorAll('.btn-feedback, #openFeedbackBtn');
+        const modal = document.getElementById('feedbackModal');
+        const modalClose = document.querySelector('.feedback-modal-close');
+        const form = document.getElementById('feedbackForm');
+        const successMessage = document.getElementById('feedbackSuccess');
+
+        // Open modal
+        feedbackBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openModal();
+            });
+        });
+
+        // Function to open modal
+        function openModal() {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            // Ensure form is visible and success message is hidden
+            form.style.display = 'block';
+            successMessage.style.display = 'none';
+        }
+
+        // Close modal on X click
+        modalClose.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeModal();
+        });
+
+        // Close modal on outside click
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Add escape key support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                closeModal();
+            }
+        });
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            // Reset form
+            form.reset();
+            form.style.display = 'block';
+            successMessage.style.display = 'none';
+            // Reset validation messages
+            document.querySelectorAll('.validation-message').forEach(msg => msg.remove());
+            document.querySelectorAll('.input-error').forEach(input => input.classList.remove('input-error'));
+        }
+
+        // Form validation and submission
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (validateForm()) {
+                showLoading();
+                
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                hideLoading();
+                showSuccess();
+            }
+        });
+
+        function validateForm() {
+            let isValid = true;
+            clearValidationMessages();
+
+            // Validate feedback type
+            const feedbackType = document.getElementById('feedbackType');
+            if (!feedbackType.value) {
+                showError(feedbackType, 'Please select a feedback type');
+                isValid = false;
+            }
+
+            // Validate title
+            const title = document.getElementById('feedbackTitle');
+            if (!title.value.trim()) {
+                showError(title, 'Please enter a title');
+                isValid = false;
+            }
+
+            // Validate details
+            const details = document.getElementById('feedbackDetails');
+            if (!details.value.trim()) {
+                showError(details, 'Please provide feedback details');
+                isValid = false;
+            }
+
+            // Validate email format if provided
+            const email = document.getElementById('userEmail');
+            if (email.value && !isValidEmail(email.value)) {
+                showError(email, 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function showError(element, message) {
+            element.classList.add('input-error');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'validation-message';
+            errorDiv.textContent = message;
+            element.parentNode.appendChild(errorDiv);
+        }
+
+        function clearValidationMessages() {
+            document.querySelectorAll('.validation-message').forEach(msg => msg.remove());
+            document.querySelectorAll('.input-error').forEach(input => input.classList.remove('input-error'));
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function showLoading() {
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading-spinner"></span> Submitting...';
+        }
+
+        function hideLoading() {
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Submit Feedback';
+        }
+
+        function showSuccess() {
+            form.style.display = 'none';
+            successMessage.style.display = 'block';
+        }
+    });
+    </script>
+
+    <!-- Add this script at the end of body -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+
+    <!-- Add this script to handle calendar toggle functionality -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get elements
+        const calendarToggle = document.querySelector('.calendar-toggle');
+        const calendarModal = document.querySelector('.calendar-modal');
+        const closeCalendarBtn = document.querySelector('.close-calendar');
+
+        // Function to open calendar
+        function openCalendar() {
+            calendarModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Function to close calendar
+        function closeCalendar() {
+            calendarModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listeners
+        calendarToggle.addEventListener('click', openCalendar);
+        closeCalendarBtn.addEventListener('click', closeCalendar);
+
+        // Close on outside click
+        calendarModal.addEventListener('click', function(e) {
+            if (e.target === calendarModal) {
+                closeCalendar();
+            }
+        });
+    });
+    </script>
+
+    <!-- Add this script to handle character counter -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Existing feedback modal code...
+
+        // Character Counter
+        const detailsTextarea = document.getElementById('feedbackDetails');
+        const charCount = document.createElement('div');
+        charCount.className = 'char-count';
+        detailsTextarea.parentNode.appendChild(charCount);
+
+        // Initial count
+        updateCharCount();
+
+        detailsTextarea.addEventListener('input', updateCharCount);
+
+        function updateCharCount() {
+            const maxLength = 500;
+            const remaining = maxLength - detailsTextarea.value.length;
+            charCount.textContent = `${remaining} characters remaining`;
+            
+            // Update color based on remaining characters
+            if (remaining < 50) {
+                charCount.className = 'char-count warning';
+            } else {
+                charCount.className = 'char-count';
+            }
+        }
+    });
+    </script>
+
+    <script>
+    function showLoading(button) {
+        button.classList.add('btn-loading');
+        const originalText = button.textContent;
+        button.innerHTML = `
+            <span>${originalText}</span>
+            <span class="loading-text">Loading...</span>
+        `;
+    }
+
+    function hideLoading(button, originalText) {
+        button.classList.remove('btn-loading');
+        button.textContent = originalText;
+    }
+
+    // Example usage in your form submission
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        if (validateForm()) {
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            showLoading(submitBtn);
+            
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                showSuccess();
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                hideLoading(submitBtn, originalText);
+            }
+        }
+    });
+    </script>
+
+    <!-- Add this near the end of your body, before scripts -->
+    <div class="calendar-modal">
+        <div class="calendar-modal-content">
+            <div class="calendar-modal-header">
+                <h2>Tech Events Calendar</h2>
+                <button class="close-calendar">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <!-- Calendar content here -->
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendarToggles = document.querySelectorAll('.calendar-toggle');
+        const calendarModal = document.querySelector('.calendar-modal');
+
+        calendarToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                calendarModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+    });
     </script>
 </body>
 </html>
