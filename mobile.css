@@ -210,11 +210,6 @@
 
     /* Mobile Menu Styles */
     .mobile-menu-btn {
-        display: none;
-    }
-
-    /* Show mobile menu button, hide desktop nav */
-    .mobile-menu-btn {
         display: block;
         background: none;
         border: none;
@@ -416,21 +411,13 @@
 
 /* Mobile styles for header buttons */
 @media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-
-    .mobile-menu-btn {
-        display: block;
-    }
-
     .mobile-nav .calendar-toggle,
     .mobile-nav .feedback-btn {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        padding: 0.75rem 1.5rem;
+        padding: 0.75rem 1.25rem;
         width: 100%;
         height: 42px;
         margin: 0.25rem 0;
@@ -449,6 +436,13 @@
         border: 1px solid #2AB3B3;
         color: #2AB3B3;
     }
+
+    /* Icon styling for mobile */
+    .mobile-nav .calendar-toggle i,
+    .mobile-nav .feedback-btn i {
+        width: 16px;
+        height: 16px;
+    }
 }
 
 /* Additional mobile menu adjustments */
@@ -457,5 +451,32 @@
     .mobile-nav .feedback-btn {
         padding: 0.625rem 1rem;
         font-size: 0.875rem;
+    }
+}
+
+/* Base styles - hide mobile elements by default */
+.mobile-menu-toggle,
+.mobile-menu,
+.mobile-menu-close {
+    display: none;
+}
+
+/* Show nav-links by default for desktop */
+.nav-links {
+    display: flex;
+}
+
+@media screen and (max-width: 428px) {
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    /* Only show close button when mobile menu is active */
+    .mobile-menu.active .mobile-menu-close {
+        display: block;
     }
 }
