@@ -477,6 +477,63 @@
                 return new Date(date) > new Date();
             };
 
+            // Event Card Component with Calendar Functions
+            const EventCard = ({ event }) => {
+                // Add to Google Calendar Function
+                const addToGoogleCalendar = (event) => {
+                    const { title, date, endDate, description, location } = event;
+                    const formattedStartDate = new Date(date).toISOString().replace(/-|:|\.\d+/g, "");
+                    const formattedEndDate = new Date(endDate).toISOString().replace(/-|:|\.\d+/g, "");
+                    const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${formattedStartDate}/${formattedEndDate}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
+                    window.open(url, "_blank");
+                };
+
+                return (
+                    <div className="event-card">
+                        <div className="event-header">
+                            <div>
+                                <h3 className="event-title">
+                                    {event.title}
+                                    {event.featured && <span className="featured-badge">Featured</span>}
+                                </h3>
+                                <div className="event-category">{event.category}</div>
+                            </div>
+                        </div>
+                        
+                        <div className="event-date">
+                            {new Date(event.date).toLocaleDateString()} - {new Date(event.endDate).toLocaleDateString()}
+                            {isUpcoming(event.date) && <span className="upcoming-badge">Upcoming</span>}
+                        </div>
+                        
+                        <p className="event-description">{event.description}</p>
+                        
+                        <div className="event-location">
+                            <span className="location-pin">📍</span> {event.location}
+                        </div>
+                        
+                        <div className="event-actions">
+                            <button 
+                                onClick={() => addToGoogleCalendar(event)}
+                                className="btn-calendar"
+                                data-type="google"
+                            >
+                                <i className="fas fa-calendar-plus"></i>
+                                Add to Google Calendar
+                            </button>
+                            <a 
+                                href={event.website} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="btn-website"
+                            >
+                                <i className="fas fa-external-link-alt"></i>
+                                Visit Website
+                            </a>
+                        </div>
+                    </div>
+                );
+            };
+
             return (
                 <div className="calendar-container">
                     {/* Filters Section */}
@@ -522,13 +579,7 @@
                             </div>
                         ) : visibleEvents.length > 0 ? (
                             visibleEvents.map(event => (
-                                <div key={event.id} className={`event-card ${isToday(event.date) ? 'today' : ''}`}>
-                                    <h3>{event.title}</h3>
-                                    <p>{event.description}</p>
-                                    <p><strong>Location:</strong> {event.location}</p>
-                                    <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()} - {new Date(event.endDate).toLocaleDateString()}</p>
-                                    <a href={event.website} target="_blank" rel="noopener noreferrer">Visit Website</a>
-                                </div>
+                                <EventCard key={event.id} event={event} />
                             ))
                         ) : (
                             <p>No events found for the selected filters.</p>
