@@ -9,10 +9,34 @@
     <link rel="stylesheet" href="mobile.css">
     <link rel="stylesheet" href="calendar.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Add this line -->
+    <!-- Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Safari-specific styles -->
+    <style>
+        .calendar-modal {
+            -webkit-overflow-scrolling: touch;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        .calendar-container {
+            -webkit-overflow-scrolling: touch;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        /* Fix for Safari scrolling */
+        @supports (-webkit-overflow-scrolling: touch) {
+            .calendar-modal-content {
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -113,7 +137,7 @@
                 <i data-lucide="menu"></i>
             </button>
 
-            <!-- Mobile Menu Panel -->
+            <!-- Add Mobile Menu Panel -->
             <div class="mobile-menu">
                 <button class="mobile-menu-close">
                     <i data-lucide="x"></i>
@@ -779,7 +803,7 @@
         });
     </script>
 
-    <!-- Add this script after your React component script -->
+    <!-- Update the mobile menu script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -801,6 +825,22 @@
             // Close menu when clicking nav links
             mobileNavLinks.forEach(link => {
                 link.addEventListener('click', toggleMobileMenu);
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (mobileMenu.classList.contains('active') && 
+                    !mobileMenu.contains(e.target) && 
+                    !mobileMenuBtn.contains(e.target)) {
+                    toggleMobileMenu();
+                }
+            });
+
+            // Close menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
             });
         });
     </script>
@@ -1270,6 +1310,58 @@
                 calendarModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             });
+        });
+    });
+    </script>
+
+    <!-- Update the calendar modal script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendarToggles = document.querySelectorAll('.calendar-toggle');
+        const calendarModal = document.querySelector('.calendar-modal');
+        const closeBtn = document.querySelector('.calendar-modal-close');
+
+        // Use touchstart for better mobile response
+        const eventStart = 'ontouchstart' in window ? 'touchstart' : 'click';
+
+        function toggleModal(show) {
+            if (show) {
+                calendarModal.style.display = 'block';
+                // Small delay for Safari
+                setTimeout(() => {
+                    calendarModal.classList.add('active');
+                    document.body.style.position = 'fixed';
+                    document.body.style.width = '100%';
+                }, 10);
+            } else {
+                calendarModal.classList.remove('active');
+                document.body.style.position = '';
+                document.body.style.width = '';
+                // Small delay for Safari animation
+                setTimeout(() => {
+                    calendarModal.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        calendarToggles.forEach(toggle => {
+            toggle.addEventListener(eventStart, () => toggleModal(true));
+        });
+
+        closeBtn.addEventListener(eventStart, () => toggleModal(false));
+
+        // Handle clicks outside modal
+        calendarModal.addEventListener(eventStart, (e) => {
+            if (e.target === calendarModal) {
+                toggleModal(false);
+            }
+        });
+
+        // Handle escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && calendarModal.classList.contains('active')) {
+                toggleModal(false);
+            }
         });
     });
     </script>
