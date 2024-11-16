@@ -1,5 +1,39 @@
 /* calendar.css updated*/
 
+/* Base styles for all event cards */
+.event-card {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 10px 0;
+    color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Tech Events: Blue */
+  .card-event {
+    background-color: #2a4365; /* Blue */
+    border-left: 5px solid #3182ce;
+  }
+  
+  /* Product Launches: Purple */
+  .card-product {
+    background-color: #4c51bf; /* Purple */
+    border-left: 5px solid #805ad5;
+  }
+  
+  /* Trend-Defining News: Green */
+  .card-news {
+    background-color: #2f855a; /* Green */
+    border-left: 5px solid #38a169;
+  }
+  
+  /* Hover Effects */
+  .event-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+
 /* General Styles for Calendar Container */
 .calendar-container {
     background-color: #1a202c; /* Dark background */
