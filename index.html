@@ -337,6 +337,55 @@
         </div>
     </section>
 
+    <!-- Why Choose Momentum AI Section -->
+<section id="why-choose-momentum" class="highlight-section">
+    <div class="container">
+        <!-- Added Logo -->
+        <div class="section-logo">
+            <img src="https://i.postimg.cc/8zktRBxQ/copylogo2.png" alt="Momentum AI Logo" class="momentum-logo">
+        </div>
+        
+        <h2>Transform Your Tech Content Strategy with AI</h2>
+        <p class="intro-text">
+            Stop drowning in event research and content planning. Momentum AI empowers you with intelligent automation and data-driven insights, helping you create compelling tech content that resonates with your audience.
+        </p>
+        
+        <!-- Mock-Up Image -->
+        <div class="mockup-container">
+            <img src="assets/momentum-ai-mockup.png" alt="Momentum AI Platform Interface" class="mockup-image">
+        </div>
+        
+        <div class="features-list">
+            <div class="feature-item">
+                <i data-lucide="clock"></i>
+                <h3>Reclaim Your Time</h3>
+                <p>Cut research time by 80% with AI-powered event tracking and content ideation. That's 10+ hours back in your week.</p>
+            </div>
+            <div class="feature-item">
+                <i data-lucide="trending-up"></i>
+                <h3>Lead the Conversation</h3>
+                <p>Get real-time alerts on emerging tech trends and events before they go mainstream. Be the first to share insights that matter.</p>
+            </div>
+            <div class="feature-item">
+                <i data-lucide="zap"></i>
+                <h3>Create at Scale</h3>
+                <p>Turn one tech event into multiple content pieces with AI-generated angles, outlines, and social posts in seconds.</p>
+            </div>
+        </div>
+        <div class="cta-buttons">
+            <a href="#features" class="btn-learn-more">
+                <i data-lucide="info"></i>
+                Explore Features
+            </a>
+            <a href="#signup" class="btn-get-started">
+                <i data-lucide="rocket"></i>
+                Start Free Trial
+            </a>
+        </div>
+    </div>
+</section>
+
+
     <!-- Sign-Up Section -->
     <section id="signup" class="signup">
         <div class="container">
@@ -459,117 +508,193 @@
 
             // Sample events data
             const events = [
-                {
-                    id: 1,
-                    title: "CES 2025",
-                    date: "2025-01-07",
-                    endDate: "2025-01-10",
-                    location: "Las Vegas, NV, USA",
-                    category: "technology",
-                    description: "The world's largest consumer electronics show featuring the latest innovations and technologies.",
-                    website: "https://ces.tech",
-                    featured: true
-                },
-                {
-                    id: 2,
-                    title: "Mobile World Congress 2025",
-                    date: "2025-02-24",
-                    endDate: "2025-02-27",
-                    location: "Barcelona, Spain",
-                    category: "mobile",
-                    description: "The largest mobile industry exhibition featuring cutting-edge mobile technologies and innovations.",
-                    website: "https://mwcbarcelona.com",
-                    featured: true
-                },
-                {
-                    id: 3,
-                    title: "SXSW 2025",
-                    date: "2025-03-07",
-                    endDate: "2025-03-16",
-                    location: "Austin, TX, USA",
-                    category: "technology",
-                    description: "A large conference and festival focusing on interactive, film, and music industries with emerging technology showcases.",
-                    website: "https://sxsw.com",
-                    featured: true
-                },
-                {
-                    id: 4,
-                    title: "NVIDIA GTC 2025",
-                    date: "2025-03-17",
-                    endDate: "2025-03-20",
-                    location: "San Jose, CA, USA",
-                    category: "ai",
-                    description: "NVIDIA's annual conference on GPU computing, AI, deep learning, and high-performance computing.",
-                    website: "https://nvidia.com/gtc",
-                    featured: true
-                },
-                {
-                    id: 5,
-                    title: "IBM Think 2025",
-                    date: "2025-05-05",
-                    endDate: "2025-05-07",
-                    location: "San Francisco, CA, USA",
-                    category: "enterprise",
-                    description: "IBM's flagship technology conference with a focus on AI, cloud, data, and security.",
-                    website: "https://ibm.com/think",
-                    featured: true
-                },
-                {
-                    id: 6,
-                    title: "Google I/O 2025",
-                    date: "2025-05-15",
-                    endDate: "2025-05-16",
-                    location: "Mountain View, CA, USA",
-                    category: "developer",
-                    description: "Google's annual developer conference showcasing the latest in Android, Cloud, and AI.",
-                    website: "https://io.google",
-                    featured: true
-                },
-                {
-                    id: 7,
-                    title: "Apple WWDC 2025",
-                    date: "2025-06-10",
-                    endDate: "2025-06-14",
-                    location: "Cupertino, CA, USA",
-                    category: "developer",
-                    description: "Apple's Worldwide Developers Conference introducing new software and technologies.",
-                    website: "https://developer.apple.com/wwdc",
-                    featured: true
-                },
-                {
-                    id: 8,
-                    title: "TNW Conference 2025",
-                    date: "2025-06-18",
-                    endDate: "2025-06-19",
-                    location: "Amsterdam, Netherlands",
-                    category: "technology",
-                    description: "TNW Conference brings together international tech leaders, executives, and investors.",
-                    website: "https://thenextweb.com",
-                    featured: true
-                },
-                {
-                    id: 9,
-                    title: "DEF CON 2025",
-                    date: "2025-08-07",
-                    endDate: "2025-08-10",
-                    location: "Las Vegas, NV, USA",
-                    category: "security",
-                    description: "One of the world's largest and most notable hacker conventions focused on cybersecurity and digital privacy.",
-                    website: "https://defcon.org",
-                    featured: true
-                },
-                {
-                    id: 10,
-                    title: "AWS re:Invent 2025",
-                    date: "2025-12-02",
-                    endDate: "2025-12-06",
-                    location: "Las Vegas, NV, USA",
-                    category: "cloud",
-                    description: "Amazon Web Services' flagship conference for cloud computing professionals.",
-                    website: "https://reinvent.awsevents.com",
-                    featured: true
-                }
-            ];
+  // Tech Events
+  {
+    id: 1,
+    title: "CES 2025",
+    date: "2025-01-07",
+    endDate: "2025-01-10",
+    location: "Las Vegas, NV, USA",
+    category: "technology",
+    type: "event", // Tech Event
+    description: "The world's largest consumer electronics show featuring the latest innovations and technologies.",
+    website: "https://ces.tech",
+    featured: true
+  },
+  {
+    id: 2,
+    title: "Mobile World Congress 2025",
+    date: "2025-02-24",
+    endDate: "2025-02-27",
+    location: "Barcelona, Spain",
+    category: "mobile",
+    type: "event",
+    description: "The largest mobile industry exhibition featuring cutting-edge mobile technologies and innovations.",
+    website: "https://mwcbarcelona.com",
+    featured: true
+  },
+  {
+    id: 3,
+    title: "SXSW 2025",
+    date: "2025-03-07",
+    endDate: "2025-03-16",
+    location: "Austin, TX, USA",
+    category: "technology",
+    type: "event",
+    description: "A large conference and festival focusing on interactive, film, and music industries with emerging technology showcases.",
+    website: "https://sxsw.com",
+    featured: true
+  },
+  {
+    id: 4,
+    title: "NVIDIA GTC 2025",
+    date: "2025-03-17",
+    endDate: "2025-03-20",
+    location: "San Jose, CA, USA",
+    category: "ai",
+    type: "event",
+    description: "NVIDIA's annual conference on GPU computing, AI, deep learning, and high-performance computing.",
+    website: "https://nvidia.com/gtc",
+    featured: true
+  },
+  {
+    id: 5,
+    title: "IBM Think 2025",
+    date: "2025-05-05",
+    endDate: "2025-05-07",
+    location: "San Francisco, CA, USA",
+    category: "enterprise",
+    type: "event",
+    description: "IBM's flagship technology conference with a focus on AI, cloud, data, and security.",
+    website: "https://ibm.com/think",
+    featured: true
+  },
+
+  // Product Launches
+  {
+    id: 11,
+    title: "Apple's Slimmer iPhone",
+    date: "2025-09-12",
+    endDate: "2025-09-12",
+    location: "Cupertino, CA, USA",
+    category: "product",
+    type: "product", // Product Launch
+    description: "A slimmer iPhone variant featuring the A19 processor.",
+    website: "https://apple.com",
+    featured: true
+  },
+  {
+    id: 12,
+    title: "Samsung Galaxy S25",
+    date: "2025-01-20",
+    endDate: "2025-01-20",
+    location: "Seoul, South Korea",
+    category: "product",
+    type: "product",
+    description: "Next-generation Samsung Galaxy phone with advanced camera technology and enhanced performance.",
+    website: "https://samsung.com",
+    featured: true
+  },
+  {
+    id: 13,
+    title: "Tesla Affordable EV",
+    date: "2025-07-15",
+    endDate: "2025-07-15",
+    location: "Fremont, CA, USA",
+    category: "product",
+    type: "product",
+    description: "Tesla unveils an affordable electric car aimed at mainstream adoption.",
+    website: "https://tesla.com",
+    featured: true
+  },
+  {
+    id: 14,
+    title: "Meta's VR Headset",
+    date: "2025-11-10",
+    endDate: "2025-11-10",
+    location: "Menlo Park, CA, USA",
+    category: "product",
+    type: "product",
+    description: "Meta's next-generation VR headset with ultra-high resolution and advanced hand-tracking.",
+    website: "https://meta.com",
+    featured: true
+  },
+  {
+    id: 15,
+    title: "Sony PlayStation 5 Slim",
+    date: "2025-10-05",
+    endDate: "2025-10-05",
+    location: "Tokyo, Japan",
+    category: "product",
+    type: "product",
+    description: "A slimmer, more energy-efficient version of the PlayStation 5.",
+    website: "https://playstation.com",
+    featured: true
+  },
+
+  // Trend-Defining News
+  {
+    id: 21,
+    title: "AI Regulation Legislation",
+    date: "2025-03-15",
+    endDate: "2025-03-15",
+    location: "Brussels, Belgium",
+    category: "news",
+    type: "news", // Trend-Defining News
+    description: "EU implements stringent regulations on generative AI to curb misinformation and ensure ethical use.",
+    website: "https://ec.europa.eu",
+    featured: true
+  },
+  {
+    id: 22,
+    title: "Breakthrough in Fusion Energy",
+    date: "2024-12-01",
+    endDate: "2024-12-01",
+    location: "Boston, MA, USA",
+    category: "news",
+    type: "news",
+    description: "A private company achieves a record-breaking energy output from a fusion reactor.",
+    website: "https://energy.gov",
+    featured: true
+  },
+  {
+    id: 23,
+    title: "SpaceX Mars Mission Preparations",
+    date: "2025-06-01",
+    endDate: "2025-06-01",
+    location: "Hawthorne, CA, USA",
+    category: "news",
+    type: "news",
+    description: "SpaceX intensifies preparations for its first crewed Mars mission, scheduled for 2026.",
+    website: "https://spacex.com",
+    featured: true
+  },
+  {
+    id: 24,
+    title: "6G Network Rollout",
+    date: "2025-04-01",
+    endDate: "2025-04-01",
+    location: "Seoul, South Korea",
+    category: "news",
+    type: "news",
+    description: "Early testing of 6G networks begins in major cities, promising speeds 100 times faster than 5G.",
+    website: "https://telecoms.com",
+    featured: true
+  },
+  {
+    id: 25,
+    title: "Human Augmentation Breakthrough",
+    date: "2025-03-20",
+    endDate: "2025-03-20",
+    location: "San Francisco, CA, USA",
+    category: "news",
+    type: "news",
+    description: "First FDA-approved brain-computer interface for therapeutic use launches.",
+    website: "https://fda.gov",
+    featured: true
+  }
+];
+
 
             const months = [
                 "January", "February", "March", "April", "May", "June",
@@ -621,78 +746,94 @@
 
             // Event Card Component with Calendar Functions
             const EventCard = ({ event }) => {
-                // Add to Google Calendar Function
-                const addToGoogleCalendar = (event) => {
-                    const { title, date, endDate, description, location } = event;
-                    const formattedStartDate = new Date(date).toISOString().replace(/-|:|\.\d+/g, "");
-                    const formattedEndDate = new Date(endDate).toISOString().replace(/-|:|\.\d+/g, "");
-                    const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${formattedStartDate}/${formattedEndDate}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
-                    window.open(url, "_blank");
-                };
+  // Add to Google Calendar Function
+  const addToGoogleCalendar = (event) => {
+    const { title, date, endDate, description, location } = event;
+    const formattedStartDate = new Date(date).toISOString().replace(/-|:|\.\d+/g, "");
+    const formattedEndDate = new Date(endDate).toISOString().replace(/-|:|\.\d+/g, "");
+    const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+      title
+    )}&dates=${formattedStartDate}/${formattedEndDate}&details=${encodeURIComponent(
+      description
+    )}&location=${encodeURIComponent(location)}`;
+    window.open(url, "_blank");
+  };
 
-                // Add status check functions
-                const isEventOngoing = () => {
-                    const now = new Date();
-                    const startDate = new Date(event.date);
-                    const endDate = new Date(event.endDate);
-                    return now >= startDate && now <= endDate;
-                };
+  // Status check functions
+  const isEventOngoing = () => {
+    const now = new Date();
+    const startDate = new Date(event.date);
+    const endDate = new Date(event.endDate);
+    return now >= startDate && now <= endDate;
+  };
 
-                const isEventUpcoming = () => {
-                    const now = new Date();
-                    const startDate = new Date(event.date);
-                    const oneWeek = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
-                    const timeToEvent = startDate - now;
-                    return timeToEvent > 0 && timeToEvent <= oneWeek;
-                };
+  const isEventUpcoming = () => {
+    const now = new Date();
+    const startDate = new Date(event.date);
+    const oneWeek = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+    const timeToEvent = startDate - now;
+    return timeToEvent > 0 && timeToEvent <= oneWeek;
+  };
 
-                const getStatusBadge = () => {
-                    if (isEventOngoing()) {
-                        return <span className="status-badge ongoing">Happening Now</span>;
-                    } else if (isEventUpcoming()) {
-                        const days = Math.ceil((new Date(event.date) - new Date()) / (1000 * 60 * 60 * 24));
-                        return <span className="status-badge upcoming">Starting in {days} days</span>;
-                    }
-                    return null;
-                };
+  const getStatusBadge = () => {
+    if (isEventOngoing()) {
+      return <span className="status-badge ongoing">Happening Now</span>;
+    } else if (isEventUpcoming()) {
+      const days = Math.ceil((new Date(event.date) - new Date()) / (1000 * 60 * 60 * 24));
+      return <span className="status-badge upcoming">Starting in {days} days</span>;
+    }
+    return null;
+  };
 
-                return (
-                    <div className={`event-card ${isEventOngoing() ? 'event-ongoing' : ''} ${isEventUpcoming() ? 'event-upcoming' : ''}`}>
-                        {getStatusBadge() && (
-                            <div className="event-status">
-                                {getStatusBadge()}
-                            </div>
-                        )}
-                        <div className="event-info">
-                            <h3>{event.title}</h3>
-                            <p className="event-date">{new Date(event.date).toLocaleDateString()} - {new Date(event.endDate).toLocaleDateString()} • {event.category}</p>
-                            <p className="event-description">{event.description}</p>
-                            <div className="event-location">
-                                <span className="location-pin">📍</span> {event.location}
-                            </div>
-                            <div className="event-actions">
-                                <button 
-                                    onClick={() => addToGoogleCalendar(event)}
-                                    className="btn-calendar"
-                                    data-type="google"
-                                >
-                                    <i className="fas fa-calendar-plus"></i>
-                                    Add to Google Calendar
-                                </button>
-                                <a 
-                                    href={event.website} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
-                                    className="btn-website"
-                                >
-                                    <i className="fas fa-external-link-alt"></i>
-                                    Visit Website
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                );
-            };
+  // Dynamic class based on event type
+  const cardTypeClass = event.type === "event" 
+    ? "card-event" 
+    : event.type === "product" 
+    ? "card-product" 
+    : "card-news";
+
+  return (
+    <div
+      className={`event-card ${cardTypeClass} ${
+        isEventOngoing() ? "event-ongoing" : ""
+      } ${isEventUpcoming() ? "event-upcoming" : ""}`}
+    >
+      {getStatusBadge() && (
+        <div className="event-status">{getStatusBadge()}</div>
+      )}
+      <div className="event-info">
+        <h3>{event.title}</h3>
+        <p className="event-date">
+          {new Date(event.date).toLocaleDateString()} -{" "}
+          {new Date(event.endDate).toLocaleDateString()} • {event.category}
+        </p>
+        <p className="event-description">{event.description}</p>
+        <div className="event-location">
+          <span className="location-pin">📍</span> {event.location}
+        </div>
+        <div className="event-actions">
+          <button
+            onClick={() => addToGoogleCalendar(event)}
+            className="btn-calendar"
+            data-type="google"
+          >
+            <i className="fas fa-calendar-plus"></i>
+            Add to Google Calendar
+          </button>
+          <a
+            href={event.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-website"
+          >
+            <i className="fas fa-external-link-alt"></i>
+            Visit Website
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+};
 
             // Scroll to top handler
             const scrollToTop = () => {
@@ -1117,6 +1258,7 @@
                 console.error('Error submitting feedback:', error);
                 alert('Sorry, there was an error submitting your feedback. Please try again.');
             } finally {
+                // Reset button state
                 submitButton.disabled = false;
                 submitButton.innerHTML = 'Submit Feedback';
             }
